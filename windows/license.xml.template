@@ -1,0 +1,12 @@
+<license> 
+    <issueDate>2020-05-28</issueDate> 
+    <licenseSchemaVersion>1.2</licenseSchemaVersion> 
+    <licenseType>standard</licenseType> 
+    <majorVersion>0</majorVersion> 
+    <minorVersion>0</minorVersion> 
+    <organization>RWTH Aachen University - Open Source License</organization> 
+    <patchVersion>0</patchVersion> 
+    <product>VMware InstallBuilder Multiplatform Enterprise</product> 
+    <project>Sync-my-L2P</project> 
+    <signature>PLACEHOLDER</signature> 
+</license>
