@@ -7,6 +7,7 @@ env:
   QT_VERSION: "5.14.2"
   QT_CREATOR_VERSION: "4.12.0"
   QT_CREATOR_SNAPSHOT: NO
+  ICU_VERSION: "56.2"
   INSTALL_BUILDER_VERSION: "20.4.0"
   PRODUCT_PRO: "Sync-my-L2P.pro"
   PRODUCT_NAME: "SyncMyL2P"
@@ -21,21 +22,25 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest x64", artifact: "Windows-x64.zip",
+            name: "Windows Latest x64",
+            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x64.exe",
             os: windows-latest,
             environment_script: "$ENV{VCINSTALLDIR}/Auxiliary/Build/vcvars64.bat"
           }
         - {
-            name: "Windows Latest x86", artifact: "Windows-x86.zip",
+            name: "Windows Latest x86",
+            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x86.exe",
             os: windows-latest,
             environment_script: "$ENV{VCINSTALLDIR}/Auxiliary/Build/vcvars32.bat"
           }
         - {
-            name: "Linux Latest x64", artifact: "Linux-x64.zip",
-            os: ubuntu-latest
+            name: "Ubuntu 16.04 x64",
+            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
+            os: ubuntu-16.04
           }
         - {
-            name: "macOS Latest x64", artifact: "macOS-x64.zip",
+            name: "macOS Latest x64",
+            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-osx.dmg",
             os: macos-latest
           }
 
@@ -43,7 +48,6 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Inserting OAuth 2.0 Client ID in Header file
-      id: clientid
       shell: cmake -P {0}
       run: |
         file(READ ./include/clientId.h clientid_h_content)
@@ -52,11 +56,12 @@ jobs:
         file(WRITE ./include/clientId.h "${clientid_h_content}")
 
     - name: Installing system libs
+      id: syslibs
       shell: cmake -P {0}
       run: |
         if ("${{ runner.os }}" STREQUAL "Linux")
           execute_process(
-            COMMAND sudo apt install libgl1-mesa-dev
+            COMMAND sudo apt install libgl1-mesa-dev libxkbcommon-x11-0
           )
         endif()
 
@@ -203,6 +208,11 @@ jobs:
           )
         endif()
 
+        file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/qtcreator" qtc_directory)
+
+        # Save the path for other steps
+        message("::set-output name=qtc_directory::${qtc_directory}")
+
     - name: Download VMware InstallBuilder
       id: installbuilder
       shell: cmake -P {0}
@@ -226,6 +236,12 @@ jobs:
     - name: Configure
       shell: cmake -P {0}
       run: |
+        if (NOT "${{ runner.os }}" STREQUAL "Windows")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/Qt/lib:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator/plugins:$ENV{LD_LIBRARY_PATH}")
+        endif()
+
         if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
           execute_process(
             COMMAND "${{ matrix.config.environment_script }}" && set
@@ -263,7 +279,9 @@ jobs:
           set(ENV{PATH} "${{ steps.qt.outputs.qt_dir }}/bin/;$ENV{PATH}")
         else()
           set(ENV{PATH} "${{ steps.qt.outputs.qt_dir }}/bin/:$ENV{PATH}")
-          set(ENV{LD_LIBRARY_PATH} "qtcreator/lib/Qt/lib:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/Qt/lib:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator/plugins:$ENV{LD_LIBRARY_PATH}")
         endif()
 
         include(ProcessorCount)
@@ -286,6 +304,10 @@ jobs:
       id: installer
       shell: cmake -P {0}
       run: |
+        file(READ ./gui/info.ui info_ui_content)
+        string(REGEX MATCH "<string[^>]*>Version: ([^<]+)</string>" unused "${info_ui_content}")
+        set(product_version ${CMAKE_MATCH_1})
+
         if ("${{ runner.os }}" STREQUAL "Windows")
           execute_process(
             COMMAND ${{ steps.qt.outputs.qt_dir }}/bin/windeployqt
@@ -297,9 +319,6 @@ jobs:
             message(FATAL_ERROR "Bad exit status")
           endif()
 
-          file(READ ./gui/info.ui info_ui_content)
-          string(REGEX MATCH "<string[^>]*>Version: ([^<]+)</string>" unused "${info_ui_content}")
-          set(product_version ${CMAKE_MATCH_1})
           file(READ ./windows/SyncMyL2P.xml.template installbuilder_xml_content)
           string(REGEX REPLACE "VERSION_PLACEHOLDER" "${product_version}" installbuilder_xml_content "${installbuilder_xml_content}")
           file(WRITE ./windows/SyncMyL2P.xml "${installbuilder_xml_content}")
@@ -320,9 +339,30 @@ jobs:
             message(FATAL_ERROR "Bad exit status")
           endif()
 
-          set(installer_name "$ENV{PRODUCT_NAME}-${product_version}-${installer_platform}-installer.exe")
-          set(installer_path "./windows/build/${installer_name}")
-        else()
+          set(artifact_path "./windows/build/$ENV{PRODUCT_NAME}-${product_version}-${installer_platform}-installer.exe")
+
+        elseif ("${{ runner.os }}" STREQUAL "Linux")
+          set(ENV{PATH} "${{ steps.qt.outputs.qt_dir }}/bin/:$ENV{PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/Qt/lib:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator/plugins:$ENV{LD_LIBRARY_PATH}")
+
+          file(DOWNLOAD "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+            ./linux/linuxdeployqt-continuous-x86_64.AppImage SHOW_PROGRESS)
+          execute_process(COMMAND dos2unix Sync-my-L2P.desktop WORKING_DIRECTORY ./linux/)
+          execute_process(COMMAND sudo chmod a+x ./linuxdeployqt-continuous-x86_64.AppImage WORKING_DIRECTORY ./linux/)
+          execute_process(COMMAND ls -l  WORKING_DIRECTORY ./linux/)
+          execute_process(COMMAND ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract WORKING_DIRECTORY ./linux/)
+          set(ENV{PATH} "$ENV{GITHUB_WORKSPACE}/linux/squashfs-root/usr/bin/:$ENV{PATH}")
+          file(MAKE_DIRECTORY "linux/usr/bin")
+          file(COPY "./bin/Sync-my-L2P" DESTINATION "./linux/usr/bin/")
+          set(ENV{VERSION} "${product_version}")
+          execute_process(COMMAND ./squashfs-root/AppRun ./usr/bin/Sync-my-L2P -verbose=1 -appimage WORKING_DIRECTORY ./linux/)
+
+          set(artifact_path "./linux/Sync-my-L2P-$ENV{VERSION}-x86_64.AppImage")
+
+        elseif ("${{ runner.os }}" STREQUAL "macOS")
+          # TODO
           file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/$ENV{PRODUCT_NAME}-$ENV{QT_CREATOR_VERSION}-${{ matrix.config.artifact }}" artifact)
 
           execute_process(COMMAND
@@ -330,19 +370,21 @@ jobs:
             WORKING_DIRECTORY "${{ steps.qt_creator.outputs.qtc_output_directory }}"
           )
 
-          set(installer_name "${{ env.PRODUCT_NAME }}-${{ env.QT_CREATOR_VERSION }}-${{ matrix.config.artifact }}")
-          set(installer_path "./${installer_name}")
+          set(artifact_name "${{ env.PRODUCT_NAME }}-${{ env.QT_CREATOR_VERSION }}-${{ matrix.config.artifact }}")
+          set(artifact_path "./${artifact_name}")
         endif()
 
+        string(REPLACE "PRODUCT_VERSION" "${product_version}" artifact_name "${{ matrix.config.artifact }}")
+
         # Save installer name and path for the next step
-        message("::set-output name=installer_name::${installer_name}")
-        message("::set-output name=installer_path::${installer_path}")
+        message("::set-output name=artifact_name::${artifact_name}")
+        message("::set-output name=artifact_path::${artifact_path}")
 
     - uses: actions/upload-artifact@v1
       id: upload_artifact
       with:
-        name: ${{ steps.installer.outputs.installer_name }}
-        path: ${{ steps.installer.outputs.installer_path }}
+        name: ${{ steps.installer.outputs.artifact_name }}
+        path: ${{ steps.installer.outputs.artifact_path }}
 
   release:
     if: contains(github.ref, 'tags/v')
@@ -379,19 +421,23 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest x64", artifact: "Windows-x64.zip",
+            name: "Windows Latest x64",
+            artifact: "Windows-x64.zip",
             os: ubuntu-latest
           }
         - {
-            name: "Windows Latest x86", artifact: "Windows-x86.zip",
+            name: "Windows Latest x86",
+            artifact: "Windows-x86.zip",
             os: ubuntu-latest
           }
         - {
-            name: "Linux Latest x64", artifact: "Linux-x64.zip",
+            name: "Linux Latest x64",
+            artifact: "Linux-x64.zip",
             os: ubuntu-latest
           }
         - {
-            name: "macOS Latest x64", artifact: "macOS-x64.zip",
+            name: "macOS Latest x64",
+            artifact: "macOS-x64.zip",
             os: macos-latest
           }
     needs: release
