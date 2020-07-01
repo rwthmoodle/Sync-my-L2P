@@ -23,6 +23,7 @@
 
 #include "qslog/QsLog.h"
 #include "utils.h"
+#include "version.h"
 
 
 MyMainWindow::MyMainWindow(QWidget *parent):
@@ -135,7 +136,7 @@ void MyMainWindow::removeOldSettings()
 
 void MyMainWindow::checkForUpdate()
 {
-    int currentVersion = 20402;
+    int currentVersion = PRODUCT_VERSION_CODE;
 
     QNetworkAccessManager manager;
     QNetworkRequest request(QUrl("https://www.syncmyl2p.de/version.txt"));
