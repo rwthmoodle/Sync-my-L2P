@@ -1,7 +1,7 @@
 <project>
     <shortName>SyncMyL2P</shortName>
     <fullName>Sync-my-L2P</fullName>
-    <version>VERSION_PLACEHOLDER</version>
+    <version>PRODUCT_VERSION</version>
     <logoImage>../icons/Sync-my-L2P.png</logoImage>
     <splashImage>../icons/Sync-my-L2P.png</splashImage>
     <defaultLanguage>de</defaultLanguage>
