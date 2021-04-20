@@ -59,7 +59,7 @@ void Login::getAccess()
 void Login::postRequest(QUrlQuery &query, QUrl url)
 {
     QByteArray queryString;
-    queryString.append(query.toString());
+    queryString.append(query.toString().toUtf8());
 
     url.setQuery(query);
 
