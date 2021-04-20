@@ -5,6 +5,7 @@
 #include <QDesktopWidget>
 #include <QFileInfo>
 #include <QLinkedList>
+#include <QScreen>
 
 #include "utils.h"
 #include "urls.h"
@@ -250,7 +251,7 @@ Structureelement *Utils::getDirectoryItem(Structureelement *courseItem, QStringL
 /// Zentrieren eines Fenster auf dem Desktops
 void Utils::centerWidgetOnDesktop(QWidget *widget)
 {
-    QRect desktopRect = QApplication::desktop()->screenGeometry();
+    QRect desktopRect = widget->screen()->virtualGeometry();
     QRect windowRect  = widget->frameGeometry();
     widget->move((desktopRect.width()-windowRect.width())/2+desktopRect.x(), (desktopRect.height()-windowRect.height())/2+desktopRect.y());
 }
