@@ -23,7 +23,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrl>
-#include <QTimer>
+#include <QElapsedTimer>
 #include <QEventLoop>
 #include <QStringBuilder>
 #include <QFile>
@@ -70,7 +70,7 @@ private:
     QString correctUnit(qint64 bytes);
     double correctSize(qint64 bytes);
 
-    QTime downloadTime;
+    QElapsedTimer downloadTime;
 
     bool showedError;
 
