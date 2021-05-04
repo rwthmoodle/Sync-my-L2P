@@ -127,13 +127,12 @@ QVariant Structureelement::data(int role) const
             return QBrush(Qt::red);
         }
     case Qt::FontRole:
+    {
+        QFont Font;
         // Semester und Veranstaltungen fett darstellen
-        if (typeEX == courseItem || typeEX == semesterItem)
-        {
-            QFont BoldFont;
-            BoldFont.setBold(true);
-            return BoldFont;
-        }
+        Font.setBold(typeEX == courseItem || typeEX == semesterItem);
+        return Font;
+    }
     default:
         return QStandardItem::data(role);
     }
