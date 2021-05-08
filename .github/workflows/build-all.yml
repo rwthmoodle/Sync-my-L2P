@@ -3,9 +3,8 @@ name: Build
 on: [push]
 
 env:
-  VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC"
-  QT_VERSION: "5.14.2"
-  QT_CREATOR_VERSION: "4.12.0"
+  QT_VERSION: "6.1.0"
+  QT_CREATOR_VERSION: "4.15.0"
   QT_CREATOR_SNAPSHOT: NO
   INSTALL_BUILDER_VERSION: "20.4.0"
   PRODUCT_PRO: "Sync-my-L2P.pro"
@@ -21,26 +20,20 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest x64",
+            name: "Windows Server 2019",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x64.exe",
-            os: windows-latest,
+            os: windows-2019,
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
           }
         - {
-            name: "Windows Latest x86",
-            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x86.exe",
-            os: windows-latest,
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars32.bat"
-          }
-        - {
-            name: "Ubuntu 16.04 x64",
+            name: "Ubuntu 20.04",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
-            os: ubuntu-16.04
+            os: ubuntu-20.04
           }
         - {
-            name: "macOS Latest x64",
+            name: "macOS Catalina 10.15",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-osx.dmg",
-            os: macos-latest
+            os: macos-10.15
           }
 
     steps:
@@ -130,25 +123,19 @@ jobs:
         string(REPLACE "." "" qt_version_dotless "${qt_version}")
         if ("${{ runner.os }}" STREQUAL "Windows")
           set(url_os "windows_x86")
-          if ("${{ matrix.config.environment_script }}" MATCHES "vcvars64.bat")
-            set(qt_package_name "qt.qt5.${qt_version_dotless}.win64_msvc2017_64")
-            set(qt_dir_prefix "${qt_version}/msvc2017_64")
-          elseif ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-            set(qt_package_name "qt.qt5.${qt_version_dotless}.win32_msvc2017")
-            set(qt_dir_prefix "${qt_version}/msvc2017")
-          else()
-          endif()
+          set(qt_package_name "qt.qt6.${qt_version_dotless}.win64_msvc2019_64")
+          set(qt_dir_prefix "${qt_version}/msvc2019_64")
         elseif ("${{ runner.os }}" STREQUAL "Linux")
           set(url_os "linux_x64")
-          set(qt_package_name "qt.qt5.${qt_version_dotless}.gcc_64")
+          set(qt_package_name "qt.qt6.${qt_version_dotless}.gcc_64")
           set(qt_dir_prefix "${qt_version}/gcc_64")
         elseif ("${{ runner.os }}" STREQUAL "macOS")
           set(url_os "mac_x64")
-          set(qt_package_name "qt.qt5.${qt_version_dotless}.clang_64")
+          set(qt_package_name "qt.qt6.${qt_version_dotless}.clang_64")
           set(qt_dir_prefix "${qt_version}/clang_64")
         endif()
 
-        set(qt_base_url "https://download.qt.io/online/qtsdkrepository/${url_os}/desktop/qt5_${qt_version_dotless}")
+        set(qt_base_url "https://download.qt.io/online/qtsdkrepository/${url_os}/desktop/qt6_${qt_version_dotless}")
         file(DOWNLOAD "${qt_base_url}/Updates.xml" ./Updates.xml SHOW_PROGRESS)
 
         file(READ ./Updates.xml updates_xml)
@@ -158,15 +145,10 @@ jobs:
         set(package_suffix ${CMAKE_MATCH_2})
         string(REPLACE "-debug-symbols" "" package_suffix "${package_suffix}")
 
-        # Workaround for CMake's greedy regex
-        if ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-          string(REPLACE "X86_64" "X86" package_suffix "${package_suffix}")
-        endif()
-
-        file(MAKE_DIRECTORY qt5)
+        file(MAKE_DIRECTORY qt6)
 
         # Save the path for other steps
-        file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/qt5/${qt_dir_prefix}" qt_dir)
+        file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/qt6/${qt_dir_prefix}" qt_dir)
         message("::set-output name=qt_dir::${qt_dir}")
 
         foreach(package qtbase qtdeclarative qttools qtsvg qttranslations)
@@ -174,27 +156,22 @@ jobs:
             "${qt_base_url}/${qt_package_name}/${package_version}${package}${package_suffix}.7z" ./${package}.7z
             SHOW_PROGRESS
           )
-          execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ../${package}.7z WORKING_DIRECTORY qt5)
+          execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ../${package}.7z WORKING_DIRECTORY qt6)
         endforeach()
 
-        file(READ "qt5/${qt_dir_prefix}/mkspecs/qconfig.pri" qtconfig)
+        file(READ "qt6/${qt_dir_prefix}/mkspecs/qconfig.pri" qtconfig)
         string(REPLACE "Enterprise" "OpenSource" qtconfig "${qtconfig}")
         string(REPLACE "licheck.exe" "" qtconfig "${qtconfig}")
         string(REPLACE "licheck64" "" qtconfig "${qtconfig}")
         string(REPLACE "licheck_mac" "" qtconfig "${qtconfig}")
-        file(WRITE "qt5/${qt_dir_prefix}/mkspecs/qconfig.pri" "${qtconfig}")
+        file(WRITE "qt6/${qt_dir_prefix}/mkspecs/qconfig.pri" "${qtconfig}")
 
     - name: Download Qt Tool OpenSSL
       shell: cmake -P {0}
       run: |
         if ("${{ runner.os }}" STREQUAL "Windows")
-          if ("${{ matrix.config.environment_script }}" MATCHES "vcvars64.bat")
-            set(qt_package_name "qt.tools.openssl.win_x64")
-            set(qt_package_folder "tools_openssl_x64")
-          elseif ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-            set(qt_package_name "qt.tools.openssl.win_x86")
-            set(qt_package_folder "tools_openssl_x86")
-          endif()
+          set(qt_package_name "qt.tools.openssl.win_x64")
+          set(qt_package_folder "tools_openssl_x64")
 
           set(qt_base_url "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/${qt_package_folder}")
           file(DOWNLOAD "${qt_base_url}/Updates.xml" ./Updates.xml SHOW_PROGRESS)
@@ -206,16 +183,11 @@ jobs:
           set(package_name ${CMAKE_MATCH_2})
           string(REPLACE "-debug-symbols" "" package_name "${package_name}")
 
-          # Workaround for CMake's greedy regex
-          if ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-            string(REPLACE "X86_64" "X86" package_name "${package_name}")
-          endif()
-
           file(DOWNLOAD
             "${qt_base_url}/${qt_package_name}/${package_version}${package_name}.7z" ./openssl.7z
             SHOW_PROGRESS
           )
-          execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ../openssl.7z WORKING_DIRECTORY qt5)
+          execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ../openssl.7z WORKING_DIRECTORY qt6)
         endif()
 
     - name: Download Qt Creator
@@ -225,21 +197,13 @@ jobs:
         string(REGEX MATCH "([0-9]+.[0-9]+).[0-9]+" outvar "$ENV{QT_CREATOR_VERSION}")
 
         set(qtc_base_url "https://download.qt.io/official_releases/qtcreator/${CMAKE_MATCH_1}/$ENV{QT_CREATOR_VERSION}/installer_source")
-        set(qtc_snapshot "$ENV{QT_CREATOR_SNAPSHOT}")
-        if (qtc_snapshot)
-          set(qtc_base_url "https://download.qt.io/snapshots/qtcreator/${CMAKE_MATCH_1}/$ENV{QT_CREATOR_VERSION}/installer_source/${qtc_snapshot}")
-        endif()
 
         if ("${{ runner.os }}" STREQUAL "Windows")
           set(qtc_output_directory "bin")
-          if ("${{ matrix.config.environment_script }}" MATCHES "vcvars64.bat")
-            set(qtc_platform "windows_msvc2017_x64")
-          elseif ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-            set(qtc_platform "windows_msvc2017_x86")
-          endif()
+          set(qtc_platform "windows_x64")
         elseif ("${{ runner.os }}" STREQUAL "Linux")
           set(qtc_output_directory "bin")
-          set(qtc_platform "linux_gcc_64_rhel72")
+          set(qtc_platform "linux_x64")
         elseif ("${{ runner.os }}" STREQUAL "macOS")
           set(qtc_output_directory "bin/Sync-my-L2P.app/Contents/MacOS")
           set(qtc_platform "mac_x64")
@@ -381,11 +345,7 @@ jobs:
             message(FATAL_ERROR "Bad exit status")
           endif()
 
-          if ("${{ matrix.config.environment_script }}" MATCHES "vcvars64.bat")
-            set(installer_platform "windows-x64")
-          elseif ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-            set(installer_platform "windows")
-          endif()
+          set(installer_platform "windows-x64")
 
           execute_process(
             COMMAND ./installbuilder/bin/builder-cli.exe
@@ -500,24 +460,19 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest x64",
+            name: "Windows Server 2019",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x64.exe",
-            os: ubuntu-latest
+            os: windows-2019,
           }
         - {
-            name: "Windows Latest x86",
-            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x86.exe",
-            os: ubuntu-latest
-          }
-        - {
-            name: "Linux Latest x64",
+            name: "Ubuntu 20.04",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
-            os: ubuntu-latest
+            os: ubuntu-20.04
           }
         - {
-            name: "macOS Latest x64",
+            name: "macOS Catalina 10.15",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-osx.dmg",
-            os: macos-latest
+            os: macos-10.15
           }
     needs: release
 
