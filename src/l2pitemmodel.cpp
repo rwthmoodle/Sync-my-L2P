@@ -162,8 +162,6 @@ void L2pItemModel::requestMoodleFiles()
  */
 void L2pItemModel::loadDataFromFile()
 {
-    QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf-8"));
-
     // Dateipfad bestimmen
 #if QT_VERSION >= 0x050400
     QString dataPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
