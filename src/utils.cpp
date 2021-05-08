@@ -2,9 +2,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMessageBox>
-#include <QDesktopWidget>
 #include <QFileInfo>
-#include <QLinkedList>
 #include <QScreen>
 
 #include "utils.h"

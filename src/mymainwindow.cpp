@@ -140,7 +140,6 @@ void MyMainWindow::checkForUpdate()
 
     QNetworkAccessManager manager;
     QNetworkRequest request(QUrl("https://www.syncmyl2p.de/version.txt"));
-    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     QEventLoop newLoop;
     QNetworkReply *reply = manager.get(request);
     reply->ignoreSslErrors();

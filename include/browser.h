@@ -8,12 +8,10 @@
 #include <QtNetwork/QAuthenticator>
 #include <QUrl>
 
-#include <QRegExp>
 #include <QDomDocument>
 
 #include <QStringBuilder>
 #include <QList>
-#include <QLinkedList>
 #include <QQueue>
 #include <QSettings>
 
@@ -26,7 +24,6 @@
 #include <QMenu>
 #include <QAction>
 
-#include <QDesktopWidget>
 #include <QDesktopServices>
 
 #include "filedownloader.h"

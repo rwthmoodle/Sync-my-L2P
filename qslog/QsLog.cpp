@@ -71,7 +71,7 @@ static const char* LevelToText(Level theLevel)
         case OffLevel:
             return "";
         default: {
-            assert(!"bad log level");
+            Q_ASSERT(!"bad log level");
             return InfoString;
         }
     }
@@ -185,7 +185,7 @@ Logger::~Logger()
 
 void Logger::addDestination(DestinationPtr destination)
 {
-    assert(destination.data());
+    Q_ASSERT(destination.data());
     d->destList.push_back(destination);
 }
 
@@ -219,7 +219,7 @@ Logger::Helper::~Helper()
     }
     catch(std::exception&) {
         // you shouldn't throw exceptions from a sink
-        assert(!"exception in logger helper destructor");
+        Q_ASSERT(!"exception in logger helper destructor");
         throw;
     }
 }

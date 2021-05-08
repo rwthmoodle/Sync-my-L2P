@@ -45,7 +45,7 @@ QString Parser::escapeString(QString untrimmedStr)
 {
     // Remove problematic characters for file systems that are allowed in the l2p
     QString escapePattern = "(:|<|>|/|\\\\|\\||\\*|\\^|\\?|\\\")";
-    QRegExp escapeRegExp(escapePattern, Qt::CaseSensitive);
+    QRegularExpression escapeRegExp(escapePattern);
     QString trimmedStr = untrimmedStr.replace(escapeRegExp, "").trimmed();
     // Limit length as sometimes super long titles are used
     trimmedStr.truncate(100);

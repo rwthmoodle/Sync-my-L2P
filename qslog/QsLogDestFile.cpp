@@ -24,7 +24,6 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "QsLogDestFile.h"
-#include <QTextCodec>
 #include <QDateTime>
 #include <QtGlobal>
 #include <iostream>
@@ -126,7 +125,7 @@ QsLogging::FileDestination::FileDestination(const QString& filePath, RotationStr
     if (!mFile.open(QFile::WriteOnly | QFile::Text | mRotationStrategy->recommendedOpenModeFlag()))
         std::cerr << "QsLog: could not open log file " << qPrintable(filePath);
     mOutputStream.setDevice(&mFile);
-    mOutputStream.setCodec(QTextCodec::codecForName("UTF-8"));
+    mOutputStream.setEncoding(QStringConverter::Utf8);
 
     mRotationStrategy->setInitialInfo(mFile);
 }
@@ -144,7 +143,7 @@ void QsLogging::FileDestination::write(const QString& message, Level)
         mOutputStream.setDevice(&mFile);
     }
 
-    mOutputStream << message << endl;
+    mOutputStream << message << Qt::endl;
     mOutputStream.flush();
 }
 

@@ -1,5 +1,4 @@
 #include "l2pitemmodel.h"
-#include <QTextCodec>
 
 #include <QStandardPaths>
 #include <QCoreApplication>
@@ -183,7 +182,7 @@ void L2pItemModel::loadDataFromFile()
 
     // Dateiinhalt überprüfen
     QTextStream ts(&dataFile);
-    ts.setCodec(QTextCodec::codecForName("utf-8"));
+    ts.setEncoding(QStringConverter::Utf8);
     if(ts.atEnd())
     {
         QLOG_INFO() << tr("Geladene Datei enthält keine Daten.");
@@ -237,7 +236,7 @@ void L2pItemModel::saveDataToFile()
         return;
     }
     QTextStream ts(&file);
-    ts.setCodec(QTextCodec::codecForName("utf-8"));
+    ts.setEncoding(QStringConverter::Utf8);
     ts << domDoc.toString();
     file.close();
 }

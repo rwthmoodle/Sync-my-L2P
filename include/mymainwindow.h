@@ -19,7 +19,6 @@
 #define HAUPTFENSTER_H
 
 #include <QMainWindow>
-#include <QDesktopWidget>
 #include <QDesktopServices>
 #include <QSystemTrayIcon>
 #include <QTranslator>
