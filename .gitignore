@@ -4,6 +4,7 @@ bin
 *.pro.user
 moc_*.cpp
 qrc_*.cpp
+*.qrc
 ui_*.h
 Makefile*
 *.exe
@@ -12,9 +13,24 @@ icon.res
 compile_commands.json
 moc_predefs.h
 .qmake.stash
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Sync-my-L2P_autogen/
+.ninja_deps
+.ninja_log
+build.ninja
+Sync-my-L2P_resource.rc
+Sync-my-L2P_resource.rc.tmp
+
+// Files generated from templates
+gui/info.ui
+osx/Info.plist
+windows/SyncMyL2P.xml
 
 // Automated builds
-qt5
+qt6
 qtcreator
+cmake
+ninja.exe
 installbuilder
-windows/SyncMyL2P.xml

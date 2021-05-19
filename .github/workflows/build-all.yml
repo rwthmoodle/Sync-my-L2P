@@ -5,7 +5,8 @@ on: [push]
 env:
   QT_VERSION: "6.1.0"
   QT_CREATOR_VERSION: "4.15.0"
-  QT_CREATOR_SNAPSHOT: NO
+  CMAKE_VERSION: 3.19.8
+  NINJA_VERSION: 1.10.1
   INSTALL_BUILDER_VERSION: "20.4.0"
   PRODUCT_PRO: "Sync-my-L2P.pro"
   PRODUCT_NAME: "SyncMyL2P"
@@ -21,19 +22,25 @@ jobs:
         config:
         - {
             name: "Windows Server 2019",
-            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x64.exe",
+            artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows.exe",
             os: windows-2019,
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
+            c_compiler: cl,
+            cxx_compiler: cl
           }
         - {
             name: "Ubuntu 20.04",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
-            os: ubuntu-20.04
+            os: ubuntu-20.04,
+            c_compiler: gcc,
+            cxx_compiler: g++
           }
         - {
             name: "macOS Catalina 10.15",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-osx.dmg",
-            os: macos-10.15
+            os: macos-10.15,
+            c_compiler: clang,
+            cxx_compiler: clang++
           }
 
     steps:
@@ -69,33 +76,6 @@ jobs:
         name: version_humanreadable.txt
         path: ./version_humanreadable.txt
 
-    - name: Generate files from templates
-      shell: cmake -P {0}
-      run: |
-        # PRODUCT_VERSION
-        file(READ ./gui/info.ui.template info_ui_content)
-        string(REPLACE "PRODUCT_VERSION" "${{ steps.version.outputs.humanreadable }}" info_ui_content "${info_ui_content}")
-        file(WRITE ./gui/info.ui "${info_ui_content}")
-
-        if ("${{ runner.os }}" STREQUAL "Windows")
-
-          # INSTALLBUILDER_LICENSE
-          file(READ ./windows/license.xml.template license_xml_content)
-          string(REGEX REPLACE "<signature>[^\r\n]*</signature>" "<signature>$ENV{INSTALLBUILDER_LICENSE}</signature>" license_xml_content "${license_xml_content}")
-          file(WRITE ./installbuilder/license.xml "${license_xml_content}")
-
-          # PRODUCT_VERSION
-          file(READ ./windows/SyncMyL2P.xml.template installbuilder_xml_content)
-          string(REGEX REPLACE "PRODUCT_VERSION" "${{ steps.version.outputs.humanreadable }}" installbuilder_xml_content "${installbuilder_xml_content}")
-          file(WRITE ./windows/SyncMyL2P.xml "${installbuilder_xml_content}")
-        elseif ("${{ runner.os }}" STREQUAL "macOS")
-
-          # PRODUCT_VERSION
-          file(READ "./osx/Info.plist.template" info_plist_content)
-          string(REPLACE "PRODUCT_VERSION" "${{ steps.version.outputs.humanreadable }}" info_plist_content "${info_plist_content}")
-          file(WRITE "./bin/Sync-my-L2P.app/Contents/Info.plist" "${info_plist_content}")
-        endif()
-
     - name: Inserting OAuth 2.0 Client ID in Header file
       shell: cmake -P {0}
       run: |
@@ -103,6 +83,49 @@ jobs:
         string(REGEX REPLACE "#define CLIENTID[^\r\n]*" "#define CLIENTID \"$ENV{CLIENT_ID}\"" clientid_h_content "${clientid_h_content}")
         string(REGEX REPLACE "#error[^\r\n]*" "" clientid_h_content "${clientid_h_content}")
         file(WRITE ./include/clientId.h "${clientid_h_content}")
+
+    - name: Download Ninja and CMake
+      shell: cmake -P {0}
+      run: |
+        set(cmake_version "$ENV{CMAKE_VERSION}")
+        set(ninja_version "$ENV{NINJA_VERSION}")
+
+        if ("${{ runner.os }}" STREQUAL "Windows")
+          set(ninja_suffix "win.zip")
+          set(cmake_suffix "win64-x64.zip")
+          set(cmake_dir "cmake-${cmake_version}-win64-x64/bin")
+        elseif ("${{ runner.os }}" STREQUAL "Linux")
+          set(ninja_suffix "linux.zip")
+          set(cmake_suffix "Linux-x86_64.tar.gz")
+          set(cmake_dir "cmake-${cmake_version}-Linux-x86_64/bin")
+        elseif ("${{ runner.os }}" STREQUAL "macOS")
+          set(ninja_suffix "mac.zip")
+          set(cmake_suffix "Darwin-x86_64.tar.gz")
+          set(cmake_dir "cmake-${cmake_version}-Darwin-x86_64/CMake.app/Contents/bin")
+        endif()
+
+        set(ninja_url "https://github.com/ninja-build/ninja/releases/download/v${ninja_version}/ninja-${ninja_suffix}")
+        file(DOWNLOAD "${ninja_url}" ./ninja.zip SHOW_PROGRESS)
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./ninja.zip)
+
+        set(cmake_url "https://github.com/Kitware/CMake/releases/download/v${cmake_version}/cmake-${cmake_version}-${cmake_suffix}")
+        file(DOWNLOAD "${cmake_url}" ./cmake.zip SHOW_PROGRESS)
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./cmake.zip)
+
+        # Add to PATH environment variable
+        file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/${cmake_dir}" cmake_dir)
+        set(path_separator ":")
+        if ("${{ runner.os }}" STREQUAL "Windows")
+          set(path_separator ";")
+        endif()
+        file(APPEND "$ENV{GITHUB_PATH}" "$ENV{GITHUB_WORKSPACE}${path_separator}${cmake_dir}")
+
+        if (NOT "${{ runner.os }}" STREQUAL "Windows")
+          execute_process(
+            COMMAND chmod +x ninja
+            COMMAND chmod +x ${cmake_dir}/cmake
+          )
+        endif()
 
     - name: Installing system libs
       id: syslibs
@@ -151,13 +174,27 @@ jobs:
         file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/qt6/${qt_dir_prefix}" qt_dir)
         message("::set-output name=qt_dir::${qt_dir}")
 
+        message("Downloading Qt to ${qt_dir}")
+        function(downloadAndExtract url archive)
+          message("Downloading ${url}")
+          file(DOWNLOAD "${url}" ./${archive} SHOW_PROGRESS)
+          execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ../${archive} WORKING_DIRECTORY qt6)
+        endfunction()
+
         foreach(package qtbase qtdeclarative qttools qtsvg qttranslations)
-          file(DOWNLOAD
-            "${qt_base_url}/${qt_package_name}/${package_version}${package}${package_suffix}.7z" ./${package}.7z
-            SHOW_PROGRESS
+          downloadAndExtract(
+            "${qt_base_url}/${qt_package_name}/${package_version}${package}${package_suffix}.7z"
+            ${package}.7z
           )
-          execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ../${package}.7z WORKING_DIRECTORY qt6)
         endforeach()
+
+        # uic depends on libicu56.so
+        if ("${{ runner.os }}" STREQUAL "Linux")
+          downloadAndExtract(
+            "${qt_base_url}/${qt_package_name}/${package_version}icu-linux-Rhel7.2-x64.7z"
+            icu.7z
+          )
+        endif()
 
         file(READ "qt6/${qt_dir_prefix}/mkspecs/qconfig.pri" qtconfig)
         string(REPLACE "Enterprise" "OpenSource" qtconfig "${qtconfig}")
@@ -214,6 +251,8 @@ jobs:
 
         file(MAKE_DIRECTORY qtcreator)
 
+        message("Downloading Qt Creator from ${qtc_base_url}/${qtc_platform}")
+
         file(DOWNLOAD
           "${qtc_base_url}/${qtc_platform}/qtcreator.7z" ./qtcreator.7z SHOW_PROGRESS)
         execute_process(COMMAND
@@ -238,6 +277,11 @@ jobs:
       shell: cmake -P {0}
       run: |
         if ("${{ runner.os }}" STREQUAL "Windows")
+          # Create license file from template
+          file(READ ./windows/license.xml.template license_xml_content)
+          string(REGEX REPLACE "<signature>[^\r\n]*</signature>" "<signature>$ENV{INSTALLBUILDER_LICENSE}</signature>" license_xml_content "${license_xml_content}")
+          file(WRITE ./installbuilder/license.xml "${license_xml_content}")
+
           set(ib_installer "installbuilder-enterprise-$ENV{INSTALL_BUILDER_VERSION}-windows-installer.exe")
           set(ib_installer_url "https://installbuilder.com/${ib_installer}")
 
@@ -272,11 +316,15 @@ jobs:
         endif()
 
         execute_process(
-          COMMAND ${{ steps.qt.outputs.qt_dir }}/bin/qmake
-            $ENV{PRODUCT_PRO}
-            CONFIG+=release
-            IDE_SOURCE_TREE="${{ steps.qt_creator.outputs.qtc_directory }}"
-            IDE_BUILD_TREE="${{ steps.qt_creator.outputs.qtc_directory }}"
+          COMMAND cmake
+            -DCMAKE_PREFIX_PATH=./qt6;./qtcreator
+            -DCMAKE_BUILD_TYPE=Release
+            -G Ninja
+            -DCMAKE_C_COMPILER=${{ matrix.config.c_compiler }}
+            -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx_compiler }}
+            -DCMAKE_MAKE_PROGRAM=ninja
+            -DQT_DIR=${{ steps.qt.outputs.qt_dir }}
+            .
           RESULT_VARIABLE result
         )
         if (NOT result EQUAL 0)
@@ -307,16 +355,8 @@ jobs:
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator/plugins:$ENV{LD_LIBRARY_PATH}")
         endif()
 
-        include(ProcessorCount)
-        ProcessorCount(N)
-
-        set(make_program make -j ${N})
-        if ("${{ runner.os }}" STREQUAL "Windows")
-          set(make_program "qtcreator/bin/jom")
-        endif()
-
         execute_process(
-          COMMAND ${make_program}
+          COMMAND cmake --build .
           RESULT_VARIABLE result
         )
         if (NOT result EQUAL 0)
