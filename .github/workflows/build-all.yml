@@ -7,6 +7,7 @@ env:
   QT_VERSION: "5.14.2"
   QT_CREATOR_VERSION: "4.12.0"
   QT_CREATOR_SNAPSHOT: NO
+  XCODE_VERSION: "12.1.1"
   INSTALL_BUILDER_VERSION: "20.4.0"
   PRODUCT_PRO: "Sync-my-L2P.pro"
   PRODUCT_NAME: "SyncMyL2P"
@@ -305,6 +306,16 @@ jobs:
               set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
             endif()
           endforeach()
+        endif()
+
+        if ("${{ runner.os }}" STREQUAL "macOS")
+          execute_process(
+            COMMAND sudo xcode-select -s /Applications/Xcode_$ENV{XCODE_VERSION}.app/Contents/Developer
+            RESULT_VARIABLE result
+          )
+          if (NOT result EQUAL 0)
+            message(FATAL_ERROR "Bad exit status")
+          endif()
         endif()
 
         execute_process(
