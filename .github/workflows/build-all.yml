@@ -3,7 +3,6 @@ name: Build
 on: [push]
 
 env:
-  VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC"
   QT_VERSION: "5.14.2"
   QT_CREATOR_VERSION: "4.12.0"
   QT_CREATOR_SNAPSHOT: NO
@@ -13,6 +12,7 @@ env:
   PRODUCT_NAME: "SyncMyL2P"
   CLIENT_ID: ${{ secrets.CLIENT_ID }}
   INSTALLBUILDER_LICENSE: ${{ secrets.INSTALLBUILDER_LICENSE }}
+  VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC" # needed for installbuilder to locate vcredist
 
 jobs:
   build:
