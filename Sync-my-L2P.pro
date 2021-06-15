@@ -2,6 +2,10 @@ QT     += core gui network xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
+macx {
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
+}
+
 TARGET = Sync-my-L2P
 TEMPLATE = app
 DESTDIR = bin

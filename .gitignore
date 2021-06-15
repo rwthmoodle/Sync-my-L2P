@@ -13,6 +13,11 @@ compile_commands.json
 moc_predefs.h
 .qmake.stash
 
+// Files generated from templates
+gui/info.ui
+osx/Info.plist
+windows/SyncMyL2P.xml
+
 // Automated builds
 qt5
 qtcreator

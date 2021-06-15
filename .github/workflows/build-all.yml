@@ -3,15 +3,15 @@ name: Build
 on: [push]
 
 env:
-  VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC"
   QT_VERSION: "5.14.2"
   QT_CREATOR_VERSION: "4.12.0"
-  QT_CREATOR_SNAPSHOT: NO
+  XCODE_VERSION: "12.1.1"
   INSTALL_BUILDER_VERSION: "20.4.0"
   PRODUCT_PRO: "Sync-my-L2P.pro"
   PRODUCT_NAME: "SyncMyL2P"
   CLIENT_ID: ${{ secrets.CLIENT_ID }}
   INSTALLBUILDER_LICENSE: ${{ secrets.INSTALLBUILDER_LICENSE }}
+  VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC" # needed for installbuilder to locate vcredist
 
 jobs:
   build:
@@ -33,9 +33,9 @@ jobs:
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars32.bat"
           }
         - {
-            name: "Ubuntu 16.04 x64",
+            name: "Ubuntu 18.04 x64",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
-            os: ubuntu-16.04
+            os: ubuntu-18.04
           }
         - {
             name: "macOS Latest x64",
@@ -225,10 +225,6 @@ jobs:
         string(REGEX MATCH "([0-9]+.[0-9]+).[0-9]+" outvar "$ENV{QT_CREATOR_VERSION}")
 
         set(qtc_base_url "https://download.qt.io/official_releases/qtcreator/${CMAKE_MATCH_1}/$ENV{QT_CREATOR_VERSION}/installer_source")
-        set(qtc_snapshot "$ENV{QT_CREATOR_SNAPSHOT}")
-        if (qtc_snapshot)
-          set(qtc_base_url "https://download.qt.io/snapshots/qtcreator/${CMAKE_MATCH_1}/$ENV{QT_CREATOR_VERSION}/installer_source/${qtc_snapshot}")
-        endif()
 
         if ("${{ runner.os }}" STREQUAL "Windows")
           set(qtc_output_directory "bin")
@@ -305,6 +301,16 @@ jobs:
               set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
             endif()
           endforeach()
+        endif()
+
+        if ("${{ runner.os }}" STREQUAL "macOS")
+          execute_process(
+            COMMAND sudo xcode-select -s /Applications/Xcode_$ENV{XCODE_VERSION}.app/Contents/Developer
+            RESULT_VARIABLE result
+          )
+          if (NOT result EQUAL 0)
+            message(FATAL_ERROR "Bad exit status")
+          endif()
         endif()
 
         execute_process(
