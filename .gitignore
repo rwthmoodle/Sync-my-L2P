@@ -15,11 +15,10 @@ moc_predefs.h
 
 // Files generated from templates
 gui/info.ui
-osx/Info.plist
+include/version.h
 windows/SyncMyL2P.xml
 
 // Automated builds
 qt5
 qtcreator
 installbuilder
-windows/SyncMyL2P.xml
