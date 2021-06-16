@@ -3,8 +3,8 @@ name: Build
 on: [push]
 
 env:
-  QT_VERSION: "5.14.2"
-  QT_CREATOR_VERSION: "4.12.0"
+  QT_VERSION: "5.15.2"
+  QT_CREATOR_VERSION: "4.13.3"
   XCODE_VERSION: "12.1.1"
   INSTALL_BUILDER_VERSION: "20.4.0"
   PRODUCT_PRO: "Sync-my-L2P.pro"
@@ -117,7 +117,7 @@ jobs:
       run: |
         if ("${{ runner.os }}" STREQUAL "Linux")
           execute_process(
-            COMMAND sudo apt install libgl1-mesa-dev libxkbcommon-x11-0
+            COMMAND sudo apt install dos2unix libgl1-mesa-dev libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0
           )
         endif()
 
@@ -131,11 +131,11 @@ jobs:
         if ("${{ runner.os }}" STREQUAL "Windows")
           set(url_os "windows_x86")
           if ("${{ matrix.config.environment_script }}" MATCHES "vcvars64.bat")
-            set(qt_package_name "qt.qt5.${qt_version_dotless}.win64_msvc2017_64")
-            set(qt_dir_prefix "${qt_version}/msvc2017_64")
+            set(qt_package_name "qt.qt5.${qt_version_dotless}.win64_msvc2019_64")
+            set(qt_dir_prefix "${qt_version}/msvc2019_64")
           elseif ("${{ matrix.config.environment_script }}" MATCHES "vcvars32.bat")
-            set(qt_package_name "qt.qt5.${qt_version_dotless}.win32_msvc2017")
-            set(qt_dir_prefix "${qt_version}/msvc2017")
+            set(qt_package_name "qt.qt5.${qt_version_dotless}.win32_msvc2019")
+            set(qt_dir_prefix "${qt_version}/msvc2019")
           else()
           endif()
         elseif ("${{ runner.os }}" STREQUAL "Linux")
@@ -265,6 +265,16 @@ jobs:
         # Save the path for other steps
         message("::set-output name=qtc_directory::${qtc_directory}")
 
+        # Download jom
+        if ("${{ runner.os }}" STREQUAL "Windows")
+          file(DOWNLOAD "https://download.qt.io/official_releases/jom/jom_1_1_3.zip" ./jom.zip SHOW_PROGRESS)
+          file(ARCHIVE_EXTRACT
+            INPUT ./jom.zip
+            DESTINATION qtcreator/bin
+            VERBOSE
+          )
+        endif()
+
     - name: Download VMware InstallBuilder
       id: installbuilder
       shell: cmake -P {0}
@@ -347,6 +357,9 @@ jobs:
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/Qt/lib:$ENV{LD_LIBRARY_PATH}")
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator:$ENV{LD_LIBRARY_PATH}")
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator/plugins:$ENV{LD_LIBRARY_PATH}")
+          if ("${{ runner.os }}" STREQUAL "Linux")
+            set(ENV{LD_LIBRARY_PATH} "$ENV{GITHUB_WORKSPACE}/linux/lib:$ENV{LD_LIBRARY_PATH}")
+          endif()
         endif()
 
         include(ProcessorCount)
@@ -410,6 +423,7 @@ jobs:
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/Qt/lib:$ENV{LD_LIBRARY_PATH}")
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator:$ENV{LD_LIBRARY_PATH}")
           set(ENV{LD_LIBRARY_PATH} "${{ steps.qt_creator.outputs.qtc_directory }}/lib/qtcreator/plugins:$ENV{LD_LIBRARY_PATH}")
+          set(ENV{LD_LIBRARY_PATH} "$ENV{GITHUB_WORKSPACE}/linux/lib:$ENV{LD_LIBRARY_PATH}")
 
           file(DOWNLOAD "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
             ./linux/linuxdeployqt-continuous-x86_64.AppImage SHOW_PROGRESS)
