@@ -506,17 +506,17 @@ jobs:
         - {
             name: "Windows",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows.exe",
-            os: windows-2019
+            os: ubuntu-latest
           }
         - {
             name: "Linux",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
-            os: ubuntu-18.04
+            os: ubuntu-latest
           }
         - {
             name: "macOS",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-osx.dmg",
-            os: macos-10.15
+            os: ubuntu-latest
           }
     needs: release
 
