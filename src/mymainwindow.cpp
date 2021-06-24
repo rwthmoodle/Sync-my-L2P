@@ -159,12 +159,18 @@ void MyMainWindow::checkForUpdate()
         return;
     }
     QString replyMessage(reply->readAll());
+    replyMessage = replyMessage.trimmed();
     QLOG_DEBUG() << tr("Aktuelle Version laut Server:") << replyMessage;
     if( replyMessage.toInt() > currentVersion )
     {
         // Aufhübschen der Versionsnummer
-        replyMessage.insert(4, ".");
-        replyMessage.insert(2, ".");
+        QRegularExpression re("^(\\d{1,2})(\\d{2})(\\d{2})$");
+        QRegularExpressionMatch match = re.match(replyMessage);
+        if (match.hasMatch()) {
+            replyMessage = QString::number(match.captured(1).toInt()) + "."
+                         + QString::number(match.captured(2).toInt()) + "."
+                         + QString::number(match.captured(3).toInt());
+        }
 
         // Anzeige für den Benutzer
         auto button = QMessageBox::question(this,

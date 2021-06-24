@@ -1,9 +1,26 @@
-QT     += core gui network xml
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT     += core gui network widgets xml
 CONFIG += c++11
+
+VERSION = "2.4.2"
+VERSION_CODE = "20402"
+
+message("generate files from templates ...")
+win32|win64 {
+    UNUSED = $$system(powershell -Command \"(Get-Content -Encoding utf8 \\\"include/version.h.template\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path include/version.h\")
+    UNUSED = $$system(powershell -Command \"(Get-Content -Encoding utf8 \\\"gui/info.ui.template\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path gui/info.ui\")
+    UNUSED = $$system(powershell -Command \"(Get-Content -Encoding utf8 \\\"windows/SyncMyL2P.xml.template\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path windows/SyncMyL2P.xml\")
+}
+unix {
+    UNUSED = $$system(sed 's/__PRODUCT_VERSION_CODE/$$VERSION_CODE/g' ./include/version.h.template | sed 's/__PRODUCT_VERSION/$$VERSION/g' > ./include/version.h)
+    UNUSED = $$system(sed 's/__PRODUCT_VERSION_CODE/$$VERSION_CODE/g' ./gui/info.ui.template | sed 's/__PRODUCT_VERSION/$$VERSION/g' > ./gui/info.ui)
+}
 
 macx {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
+
+    plistupdate.commands = /usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string $$VERSION\" -c \"Add :CFBundleShortVersionString string $$VERSION\" -c \"Add :CFBundleName string Sync-my-L2P\" -c \"Set :CFBundleIdentifier de.rwth-aachen.Sync-my-L2P\" bin/Sync-my-L2P.app/Contents/Info.plist
+    QMAKE_EXTRA_TARGETS += plistupdate
+    PRE_TARGETDEPS += plistupdate
 }
 
 TARGET = Sync-my-L2P
@@ -47,7 +64,8 @@ HEADERS  += \
     include/parser.h \
     include/structureelement.h \
     include/urls.h \
-    include/utils.h
+    include/utils.h \
+    include/version.h
 
 FORMS += \
     gui/autoclosedialog.ui \
