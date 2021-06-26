@@ -45,7 +45,7 @@ QString Utils::getElementLocalPath(Structureelement *item, QString downloadDirec
             auto element_text = parent->text();
             if(element_text.length() > 75)
                 element_text = element_text.left(75).trimmed();
-            while (QSysInfo::productType() == "windows" && element_text.endsWith(".")) {
+            while (element_text.endsWith(".")) {
                 element_text.chop(1);
             }
             path.push_front(element_text % "/");

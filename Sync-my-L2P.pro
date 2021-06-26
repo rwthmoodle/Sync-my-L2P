@@ -1,8 +1,8 @@
 QT     += core gui network widgets xml
 CONFIG += c++11
 
-VERSION = "2.4.2"
-VERSION_CODE = "20402"
+VERSION = "2.4.3"
+VERSION_CODE = "20403"
 
 TEMPLATE_FILES = include/version.h.template \
             gui/info.ui.template \
