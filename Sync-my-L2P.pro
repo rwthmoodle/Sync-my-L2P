@@ -4,16 +4,21 @@ CONFIG += c++11
 VERSION = "2.4.2"
 VERSION_CODE = "20402"
 
-message("generate files from templates ...")
+TEMPLATE_FILES = include/version.h.template \
+            gui/info.ui.template \
+            windows/SyncMyL2P.xml.template
+
+template_compiler.input = TEMPLATE_FILES
+template_compiler.output  = ${QMAKE_FILE_IN_PATH}/${QMAKE_FILE_IN_BASE}
+template_compiler.depends = ${QMAKE_FILE_IN} Sync-my-L2P.pro
 win32|win64 {
-    UNUSED = $$system(powershell -Command \"(Get-Content -Encoding utf8 \\\"include/version.h.template\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path include/version.h\")
-    UNUSED = $$system(powershell -Command \"(Get-Content -Encoding utf8 \\\"gui/info.ui.template\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path gui/info.ui\")
-    UNUSED = $$system(powershell -Command \"(Get-Content -Encoding utf8 \\\"windows/SyncMyL2P.xml.template\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path windows/SyncMyL2P.xml\")
+    template_compiler.commands = powershell -Command \"(Get-Content -Encoding utf8 \\\"${QMAKE_FILE_IN}\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path ${QMAKE_FILE_OUT}\"
 }
 unix {
-    UNUSED = $$system(sed 's/__PRODUCT_VERSION_CODE/$$VERSION_CODE/g' ./include/version.h.template | sed 's/__PRODUCT_VERSION/$$VERSION/g' > ./include/version.h)
-    UNUSED = $$system(sed 's/__PRODUCT_VERSION_CODE/$$VERSION_CODE/g' ./gui/info.ui.template | sed 's/__PRODUCT_VERSION/$$VERSION/g' > ./gui/info.ui)
+    template_compiler.commands = sed 's/__PRODUCT_VERSION_CODE/$$VERSION_CODE/g' ${QMAKE_FILE_IN} | sed 's/__PRODUCT_VERSION/$$VERSION/g' > ${QMAKE_FILE_OUT}
 }
+template_compiler.CONFIG = target_predeps no_link
+QMAKE_EXTRA_COMPILERS += template_compiler
 
 macx {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
