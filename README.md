@@ -24,7 +24,7 @@ Users with home-brew installed can now install Sync-my-L2P with the following co
 `brew tap caskroom/cask` followed by `brew cask install sync-my-l2p`. Updating the program will work with the command `brew update` to update the program formula, followed by `brew upgrade` to upgrade the program itself.
 
 # Compile
-For compilation we recommend C++11, Qt (5.11 or higher) and OpenSSL 1.1.1.
+For compilation we recommend C++11, Qt (5.15 or higher) and OpenSSL 1.1.1.
 The easiest way is to load the .pro file into Qt Creator and compile Sync-my-L2P there. From the console you can also run qmake (with appropriate arguments) instead and then the preferred C++ compiler.
 
 Note: A ClientID is required for the program to connect to the API of RWTH Moodle. The RWTH does not allow the publication of such a client ID. However, an individual ClientID can easily be requested.
