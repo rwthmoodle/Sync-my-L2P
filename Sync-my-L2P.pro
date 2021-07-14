@@ -21,8 +21,6 @@ template_compiler.CONFIG = target_predeps no_link
 QMAKE_EXTRA_COMPILERS += template_compiler
 
 macx {
-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
-
     plistupdate.commands = /usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string $$VERSION\" -c \"Add :CFBundleShortVersionString string $$VERSION\" -c \"Add :CFBundleName string Sync-my-L2P\" -c \"Set :CFBundleIdentifier de.rwth-aachen.Sync-my-L2P\" bin/Sync-my-L2P.app/Contents/Info.plist
     QMAKE_EXTRA_TARGETS += plistupdate
     PRE_TARGETDEPS += plistupdate
