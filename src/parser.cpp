@@ -11,7 +11,7 @@
 QString Parser::escapeString(QString untrimmedStr)
 {
     // Remove problematic characters for file systems that are allowed in RWTHmoodle
-    QString escapePattern = "(:|<|>|/|\\\\|\\||\\*|\\^|\\?|\\\")";
+    QString escapePattern = "(:|<|>|/|\\\\|\\||\\*|\\^|\\?|\\\"|\\#)";
     QRegExp escapeRegExp(escapePattern, Qt::CaseSensitive);
     QString trimmedStr = untrimmedStr.replace(escapeRegExp, "").trimmed();
     // Limit length as sometimes super long titles are used
@@ -112,7 +112,7 @@ void Parser::parseMoodleFiles(QNetworkReply *reply, Structureelement* course)
 
         topicname = escapeString(file["topicname"].toString());
         modulename = escapeString(file["modulename"].toString());
-        filename = file["filename"].toString();
+        filename = escapeString(file["filename"].toString());
         sourceDirectory = file["sourceDirectory"].toString();
         filesize = fileInformation["filesize"].toInt();
         timestamp = file["lastModified"].toInt();
