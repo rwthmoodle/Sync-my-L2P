@@ -223,7 +223,7 @@ void Login::finishedSlot(QNetworkReply *reply)
             else
             {
                 Utils::errorMessageBox(tr("Authorisierung für Moodle fehlt!"),
-                                       tr("Du hast Sync-my-L2P noch nicht die Berechtigung erteilt, "
+                                       tr("Du hast Sync-my-Moodle noch nicht die Berechtigung erteilt, "
                                           "auf Moodle zuzugreifen. Bitte logge dich neu ein."));
                 deleteAccess();
                 getAccess();

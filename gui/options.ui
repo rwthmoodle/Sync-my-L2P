@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
+    <width>616</width>
     <height>632</height>
    </rect>
   </property>
@@ -64,7 +64,7 @@
            <string>Löschen</string>
           </property>
           <property name="icon">
-           <iconset resource="../icons/icons.qrc">
+           <iconset>
             <normaloff>:/icons/logout.png</normaloff>:/icons/logout.png</iconset>
           </property>
          </widget>
@@ -75,7 +75,7 @@
            <string>Einloggen</string>
           </property>
           <property name="icon">
-           <iconset resource="../icons/icons.qrc">
+           <iconset>
             <normaloff>:/icons/login.png</normaloff>:/icons/login.png</iconset>
           </property>
           <property name="default">
@@ -110,7 +110,7 @@
          <string>Durchsuchen</string>
         </property>
         <property name="icon">
-         <iconset resource="../icons/icons.qrc">
+         <iconset>
           <normaloff>:/icons/downloadDirectory.png</normaloff>:/icons/downloadDirectory.png</iconset>
         </property>
        </widget>
@@ -271,10 +271,10 @@
    <item>
     <widget class="QPushButton" name="aboutButton">
      <property name="text">
-      <string>Über Sync-my-L2P</string>
+      <string>Über Sync-my-Moodle</string>
      </property>
      <property name="icon">
-      <iconset resource="../icons/icons.qrc">
+      <iconset>
        <normaloff>:/icons/about.png</normaloff>:/icons/about.png</iconset>
      </property>
     </widget>
@@ -294,8 +294,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../icons/icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

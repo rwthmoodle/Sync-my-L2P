@@ -9,7 +9,7 @@ Info::Info(QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0);
     ui->retranslateUi(this);
     setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
-    QImage image(":/icons/Sync-my-L2P.png");
+    QImage image(":/icons/Sync-my-Moodle.png");
     ui->picture->setPixmap(QPixmap::fromImage(image));
     ui->picture->adjustSize();
 }

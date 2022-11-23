@@ -1,19 +1,19 @@
 
 /****************************************************************************
-** This file is part of Sync-my-L2P.
+** This file is part of Sync-my-Moodle.
 **
-** Sync-my-L2P is free software: you can redistribute it and/or modify
+** Sync-my-Moodle is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU Lesser General Public License as published by
 ** the Free Software Foundation, either version 3 of the License, or
 ** (at your option) any later version.
 **
-** Sync-my-L2P is distributed in the hope that it will be useful,
+** Sync-my-Moodle is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU Lesser General Public License for more details.
 **
 ** You should have received a copy of the GNU Lesser General Public License
-** along with Sync-my-L2P.  If not, see <http://www.gnu.org/licenses/>.
+** along with Sync-my-Moodle.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
 #include <QLocale>
@@ -33,9 +33,9 @@ MyMainWindow::MyMainWindow(QWidget *parent):
     // Sprache installieren
     QString locale = QLocale::system().name();
 
-    if(!m_translator.load(":/lang/sync-my-l2p_" +locale))
+    if(!m_translator.load(":/lang/sync-my-moodle_" +locale))
     {
-        m_translator.load(":/lang/sync-my-l2p_en");
+        m_translator.load(":/lang/sync-my-moodle_en");
     }
     qApp->installTranslator(&m_translator);
 
@@ -97,9 +97,9 @@ void MyMainWindow::closeTask()
 void MyMainWindow::loadSettings()
 {
     // Globale Werte setzen
-    QCoreApplication::setOrganizationName("Sync-my-L2P");
-    QCoreApplication::setOrganizationDomain("Sync-my-L2P.de");
-    QCoreApplication::setApplicationName("Sync-my-L2P");
+    QCoreApplication::setOrganizationName("IT Center RWTH Aachen");
+    QCoreApplication::setOrganizationDomain("de.rwth-aachen.app.Sync-my-Moodle");
+    QCoreApplication::setApplicationName("Sync-my-Moodle");
 
     // Einstellungen alter Versionen entfernen
     removeOldSettings();
@@ -218,7 +218,7 @@ void MyMainWindow::changeEvent(QEvent *event)
                 QSystemTrayIcon::isSystemTrayAvailable())
         {
             trayIcon->show();
-            trayIcon->showMessage("Sync-my-L2P", tr("Läuft im Hintergrund weiter."));
+            trayIcon->showMessage("Sync-my-Moodle", tr("Läuft im Hintergrund weiter."));
             QTimer::singleShot(0, this, SLOT(hide()));
             event->ignore();
         }
@@ -250,21 +250,21 @@ void MyMainWindow::on_langCB_currentIndexChanged(const int &lang){
     qApp->removeTranslator(&m_translator);
     if (lang == ETOI(Options::language::sys))
     {
-        if(!m_translator.load("sync-my-l2p_" + QLocale::system().name(), ":/lang"))
+        if(!m_translator.load("sync-my-moodle_" + QLocale::system().name(), ":/lang"))
         {
-            m_translator.load("sync-my-l2p_en", ":/lang");
+            m_translator.load("sync-my-moodle_en", ":/lang");
         }
     }
     else if (lang == ETOI(Options::language::de))
-        m_translator.load("sync-my-l2p_de", ":/lang");
+        m_translator.load("sync-my-moodle_de", ":/lang");
     else if (lang == ETOI(Options::language::en))
-       m_translator.load("sync-my-l2p_en", ":/lang");
+       m_translator.load("sync-my-moodle_en", ":/lang");
     else if (lang == ETOI(Options::language::lb))
-        m_translator.load("sync-my-l2p_lb", ":/lang");
+        m_translator.load("sync-my-moodle_lb", ":/lang");
     else if (lang == ETOI(Options::language::sq))
-        m_translator.load("sync-my-l2p_sq", ":/lang");
+        m_translator.load("sync-my-moodle_sq", ":/lang");
     else
-        m_translator.load("sync-my-l2p_en", ":/lang");
+        m_translator.load("sync-my-moodle_en", ":/lang");
 
 
     qApp->installTranslator(&m_translator);

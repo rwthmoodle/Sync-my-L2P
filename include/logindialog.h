@@ -29,9 +29,7 @@ public slots:
     void run(Login *login);
 
 private slots:
-    //void checkL2PAvailability(); /// deprecated
     void checkMoodleAvailability();
-    //void availabilityL2PSlot(QNetworkReply*); /// deprecated
     void availabilityMoodleSlot(QNetworkReply*);
     void failedSlot();
     void succededSlot();
