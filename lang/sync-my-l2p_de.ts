@@ -17,10 +17,6 @@
 <context>
     <name>Browser</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
-    <message>
         <location filename="../gui/browser.ui" line="48"/>
         <source>Daten</source>
         <translation>Daten</translation>
@@ -258,10 +254,6 @@
 <context>
     <name>FileDownloader</name>
     <message>
-        <source>Starte Download von</source>
-        <translation type="obsolete">Starte Download von </translation>
-    </message>
-    <message>
         <location filename="../src/filedownloader.cpp" line="48"/>
         <source>Starte Download von </source>
         <translation></translation>
@@ -290,45 +282,52 @@
 <context>
     <name>Info</name>
     <message>
-        <location filename="../gui/info.ui" line="99"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Synchronsiere mit wenigen &lt;br/&gt;Klicks deine Dateien&lt;br/&gt;aus dem E-Learning der RWTH &lt;br/&gt;Aachen mit deinem Rechner.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../gui/info.ui" line="32"/>
+        <source>Über Sync-my-Moodle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/info.ui" line="76"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Synchronsiere mit wenigen &lt;br/&gt;Klicks deine Dateien&lt;br/&gt;aus RWTHmoodle&lt;br/&gt;mit deinem Rechner.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="138"/>
+        <location filename="../gui/info.ui" line="108"/>
         <source>Kontakt</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="163"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../gui/info.ui" line="114"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offizielle Webseite: &lt;br/&gt;&lt;a href=&quot;https://app.rwth-aachen.de/syncmymoodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://app.rwth-aachen.de/syncmymoodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offizielle Webseite: &lt;br/&gt;&lt;a href=&quot;https://app.rwth-aachen.de/syncmymoodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://app.rwth-aachen.de/syncmymoodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/info.ui" line="124"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-Moodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-Moodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/info.ui" line="134"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Social Media: &lt;br/&gt;&lt;a href=&quot;https://www.facebook.com/itcenterrwth/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://facebook.com/itcenterrwth/&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://twitter.com/itcenterrwth&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://twitter.com/itcenterrwth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="32"/>
-        <source>Über Sync-my-L²P</source>
+        <location filename="../gui/info.ui" line="144"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moodle: &lt;br/&gt;&lt;a href=&quot;https://moodle.rwth-aachen.de/local/staticpage/view.php?page=dataprivacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Datenschutzerklärung&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://moodle.rwth-aachen.de/local/staticpage/view.php?page=impressum_de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Impressum&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Synchronsiere mit wenigen &lt;br/&gt;Klicks deine Dateien&lt;br/&gt;aus dem L²P der RWTH &lt;br/&gt;Aachen mit deinem Rechner.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Synchronsiere mit wenigen &lt;br/&gt;Klicks deine Dateien&lt;br/&gt;aus dem E-Learning der RWTH &lt;br/&gt;Aachen mit deinem Rechner.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/info.ui" line="153"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offizielle Webseite: &lt;br/&gt;&lt;a href=&quot;https://www.SyncMyL2P.de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://www.SyncMyL2P.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../gui/info.ui" line="154"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontakt: &lt;br/&gt;&lt;a href=&quot;mailto:servicedesk@itc.rwth-aachen.de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;servicedesk@itc.rwth-aachen.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/Sync-my-L2P/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/RobertKrajewski/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/info.ui" line="227"/>
+        <location filename="../gui/info.ui" line="205"/>
         <source>Lizenz</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="186"/>
+        <location filename="../gui/info.ui" line="176"/>
         <source>Mitwirkende</source>
         <translation></translation>
     </message>
@@ -428,10 +427,6 @@
 </context>
 <context>
     <name>Logger</name>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
     <message>
         <location filename="../gui/logger.ui" line="60"/>
         <source>Log-Umfang:</source>
@@ -640,10 +635,6 @@
 <context>
     <name>MyMainWindow</name>
     <message>
-        <source>Sync-my-RWTHmoodle</source>
-        <translation type="obsolete">Sync-my-L²P</translation>
-    </message>
-    <message>
         <location filename="../gui/mymainwindow.ui" line="26"/>
         <source>Sync-my-L2P</source>
         <translation></translation>
@@ -714,10 +705,6 @@ Jetzt %1 aufrufen?</source>
 </context>
 <context>
     <name>Options</name>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
     <message>
         <location filename="../gui/options.ui" line="20"/>
         <source>Login</source>

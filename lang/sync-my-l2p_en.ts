@@ -17,10 +17,6 @@
 <context>
     <name>Browser</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
-    <message>
         <location filename="../gui/browser.ui" line="48"/>
         <source>Daten</source>
         <translation>Data</translation>
@@ -126,59 +122,6 @@
         <translation>Download</translation>
     </message>
     <message>
-        <source>Kann keine Daten von Festplatte laden</source>
-        <extracomment>This is a error message.</extracomment>
-        <translation type="vanished">Can&apos;t load data from harddrive</translation>
-    </message>
-    <message>
-        <source>Keine Dateiliste auf der Festplatte gefunden.</source>
-        <extracomment>This is a error message.</extracomment>
-        <translation type="vanished">No data list found on harddrive.</translation>
-    </message>
-    <message>
-        <source>Kann Daten von Festplatte nicht parsen: </source>
-        <extracomment>This is a error message.</extracomment>
-        <translation type="vanished">Can&apos;t parse from harddrive: </translation>
-    </message>
-    <message>
-        <source>Veranstaltungsrequest</source>
-        <translation type="vanished">Course request</translation>
-    </message>
-    <message>
-        <source>Veranstaltungen empfangen</source>
-        <translation type="vanished">Courses received</translation>
-    </message>
-    <message>
-        <source>Beim Abruf der Veranstaltungen ist ein Fehler aufgetreten</source>
-        <extracomment>This is a error message.</extracomment>
-        <translation type="vanished">There was an error while loading courses</translation>
-    </message>
-    <message>
-        <source>Itemrequest empfangen: </source>
-        <translation type="vanished">Item request received: </translation>
-    </message>
-    <message>
-        <source>SSL Fehler für: </source>
-        <translation type="vanished">SSL error for: </translation>
-    </message>
-    <message>
-        <source>Assignment-Module ist deaktiviert für: </source>
-        <translation type="vanished">Assignment-module is deactivated for: </translation>
-    </message>
-    <message>
-        <source>Beim Abruf des Inhalts einer Veranstaltung ist ein Fehler aufgetreten</source>
-        <extracomment>This is a error message.</extracomment>
-        <translation type="vanished">There was an error while loading up a the contents of a course</translation>
-    </message>
-    <message>
-        <source>Beim Abruf des Inhalts mindestens einer Veranstaltung ist ein Fehler aufgetreten</source>
-        <translation type="vanished">An error occurred while receiving files from at least one course</translation>
-    </message>
-    <message>
-        <source>Es können einige Dateien fehlen. Dieser Fehler wird nicht durch Sync-my-L2P verschuldet und ist bekannt. Klicke erneut auf Aktualisieren bis dieser Fehler nicht mehr auftaucht.</source>
-        <translation type="vanished">Some files could be missing. This is a known issue and it&apos;s not caused by Sync-my-L2P. Please click on &quot;Update&quot; until this message does not occurred anymore.</translation>
-    </message>
-    <message>
         <location filename="../src/browser.cpp" line="115"/>
         <source>Downloadverzeichnis fehlt!</source>
         <translation>Download directory is missing!</translation>
@@ -187,11 +130,6 @@
         <location filename="../src/browser.cpp" line="116"/>
         <source>Download unmöglich, da kein Zielverzeichnis angegeben wurde.</source>
         <translation>Download impossible because no target directory is specified.</translation>
-    </message>
-    <message>
-        <source>Kann nicht synchronisieren, da kein Downloadverzeichnis angegeben wurde</source>
-        <extracomment>This is a error message.</extracomment>
-        <translation type="vanished">Can not syncronize, because no download directory was found.</translation>
     </message>
     <message>
         <location filename="../src/browser.cpp" line="127"/>
@@ -224,10 +162,6 @@
         <translation>An updated version of &quot;%1&quot; is available for downlod. Do you want to override the existing file? This will discard any changes you made locally! (You can set a default action in the settings.)</translation>
     </message>
     <message>
-        <source>Für die Datei &quot;%1&quot; liegt eine aktualisierte Version zum Download bereit. Soll die lokale Datei überschrieben werden? Hierbei gehen bisherige Änderungen verloren! (Du kannst in den Einstellungen das Standardverhalten ändern.)</source>
-        <translation type="obsolete">Für die Datei &quot;%1&quot; steht eine aktualisierte Version zum Download bereit. Soll die lokale Datei überschrieben werden? Hierbei gehen bisherige Änderungen verloren! Du kannst in den Einstellungen das Standardverhalten ändern.</translation>
-    </message>
-    <message>
         <location filename="../src/browser.cpp" line="738"/>
         <source>Opening local file: </source>
         <translation></translation>
@@ -236,14 +170,6 @@
         <location filename="../src/browser.cpp" line="805"/>
         <source>Finalized pulling data. Checking local state...</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Nachfragen</source>
-        <translation type="vanished">Ask</translation>
-    </message>
-    <message>
-        <source>Ja</source>
-        <translation type="vanished">Yes</translation>
     </message>
     <message>
         <location filename="../src/browser.cpp" line="235"/>
@@ -261,10 +187,6 @@
         <translation>Directory not setable: </translation>
     </message>
     <message>
-        <source>Synchronisation mit dem L2P der RWTH Aachen abgeschlossen.</source>
-        <translation type="vanished">Synchronization with the L2P of RWTH Aachen completed.</translation>
-    </message>
-    <message>
         <location filename="../src/browser.cpp" line="343"/>
         <source>Es wurden %1 von %2 eingebundenen Dateien synchronisiert.
 (Dieses Fenster schließt nach 10 Sek. automatisch.)</source>
@@ -280,10 +202,6 @@
         <location filename="../src/browser.cpp" line="611"/>
         <source>Pfad zur Datei &quot;%1&quot; enthält mehr als 260 Zeichen. Wenn die Datei heruntergeladen wird, kann sie von den meisten Programmen nicht geöffnet und von Windows nicht so einfach gelöscht werden. Wenn möglich, ändere dein Downloadverzeichnis auf einen Pfad mit weniger Zeichen! Datei trotzdem herunterladen? (Du kannst in den Optionen das Standardverhalten ändern.)</source>
         <translation>Path to file &quot;%1&quot; contains more than 260 characters. If you download the file most programs can&apos;t open it and Windows can&apos;t delete it as easily. If possible change your download folder to a path with less characters! Nevertheless download the file? (You can change the default behavior in the options.</translation>
-    </message>
-    <message>
-        <source>Itemrequest an API: </source>
-        <translation type="vanished">Item request to the API: </translation>
     </message>
     <message>
         <location filename="../src/browser.cpp" line="677"/>
@@ -305,14 +223,6 @@
         <source>Link kopieren</source>
         <translation>Copy link</translation>
     </message>
-    <message>
-        <source>Nachricht anzeigen</source>
-        <translation type="vanished">Show message</translation>
-    </message>
-    <message>
-        <source>Nachricht im Quelltext anzeigen</source>
-        <translation type="vanished">Show message sourcecode</translation>
-    </message>
 </context>
 <context>
     <name>DateiDownloader</name>
@@ -320,14 +230,6 @@
         <location filename="../gui/dateidownloader.ui" line="98"/>
         <source>%v/%m KBs</source>
         <translation>%v/%m KBs</translation>
-    </message>
-    <message>
-        <source>Download Datei 12/54</source>
-        <translation type="vanished">Download file 12/54</translation>
-    </message>
-    <message>
-        <source>Grundgebiete der Grundgebiete</source>
-        <translation type="vanished">Ground of the ground</translation>
     </message>
     <message>
         <location filename="../gui/dateidownloader.ui" line="149"/>
@@ -381,45 +283,60 @@
 <context>
     <name>Info</name>
     <message>
-        <source>Über Sync-my-L2P</source>
-        <translation type="vanished">About Sync-my-L2P</translation>
+        <source>Über Sync-my-L²P</source>
+        <translation type="vanished">About Sync-my-L²P</translation>
     </message>
     <message>
         <location filename="../gui/info.ui" line="32"/>
-        <source>Über Sync-my-L²P</source>
-        <translation>About Sync-my-L²P</translation>
+        <source>Über Sync-my-Moodle</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="99"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Synchronsiere mit wenigen &lt;br/&gt;Klicks deine Dateien&lt;br/&gt;aus dem E-Learning der RWTH &lt;br/&gt;Aachen mit deinem Rechner.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sync all your files &lt;br/&gt; from RWTH Aachen E-Learning &lt;br/&gt;to your computer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../gui/info.ui" line="76"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Synchronsiere mit wenigen &lt;br/&gt;Klicks deine Dateien&lt;br/&gt;aus RWTHmoodle&lt;br/&gt;mit deinem Rechner.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sync all your files&lt;br/&gt;from RWTHmoodle&lt;br/&gt;with your computer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="138"/>
+        <location filename="../gui/info.ui" line="108"/>
         <source>Kontakt</source>
         <translation>Contact</translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="153"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offizielle Webseite: &lt;br/&gt;&lt;a href=&quot;https://www.SyncMyL2P.de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://www.SyncMyL2P.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Official website: &lt;br/&gt;&lt;a href=&quot;https://www.SyncMyL2P.de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://www.SyncMyL2P.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../gui/info.ui" line="114"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offizielle Webseite: &lt;br/&gt;&lt;a href=&quot;https://app.rwth-aachen.de/syncmymoodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://app.rwth-aachen.de/syncmymoodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Official Homepage: &lt;br/&gt;&lt;a href=&quot;https://app.rwth-aachen.de/syncmymoodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://app.rwth-aachen.de/syncmymoodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="163"/>
+        <location filename="../gui/info.ui" line="124"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-Moodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-Moodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Source Code: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-Moodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-Moodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/info.ui" line="134"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Social Media: &lt;br/&gt;&lt;a href=&quot;https://www.facebook.com/itcenterrwth/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://facebook.com/itcenterrwth/&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://twitter.com/itcenterrwth&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://twitter.com/itcenterrwth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../gui/info.ui" line="144"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moodle: &lt;br/&gt;&lt;a href=&quot;https://moodle.rwth-aachen.de/local/staticpage/view.php?page=dataprivacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Datenschutzerklärung&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://moodle.rwth-aachen.de/local/staticpage/view.php?page=impressum_de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Impressum&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moodle: &lt;br/&gt;&lt;a href=&quot;https://moodle.rwth-aachen.de/local/staticpage/view.php?page=dataprivacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Data Protection Policy&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://moodle.rwth-aachen.de/local/staticpage/view.php?page=impressum_en&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Imprint&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/info.ui" line="154"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontakt: &lt;br/&gt;&lt;a href=&quot;mailto:servicedesk@itc.rwth-aachen.de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;servicedesk@itc.rwth-aachen.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contact: &lt;br/&gt;&lt;a href=&quot;mailto:servicedesk@itc.rwth-aachen.de&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;servicedesk@itc.rwth-aachen.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sourcecode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sourcecode: &lt;br/&gt;&lt;a href=&quot;https://github.com/rwthmoodle/Sync-my-Moodle&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-Moodle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quellcode: &lt;br/&gt;&lt;a href=&quot;https://github.com/Sync-my-L2P/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sourcecode: &lt;br/&gt;&lt;a href=&quot;https://github.com/Sync-my-L2P/Sync-my-L2P&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/rwthmoodle/Sync-my-L2P&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/info.ui" line="186"/>
+        <location filename="../gui/info.ui" line="176"/>
         <source>Mitwirkende</source>
         <translation>Contributors</translation>
     </message>
     <message>
-        <location filename="../gui/info.ui" line="227"/>
+        <location filename="../gui/info.ui" line="205"/>
         <source>Lizenz</source>
         <translation>License</translation>
     </message>
@@ -472,10 +389,6 @@
         <translation>There was an error while loading courses</translation>
     </message>
     <message>
-        <source>Veranstaltungen empfangen</source>
-        <translation type="obsolete">Courses received</translation>
-    </message>
-    <message>
         <location filename="../src/l2pitemmodel.cpp" line="279"/>
         <source>Beim Abruf der Moodle-Veranstaltungen ist ein Fehler aufgetreten</source>
         <translation>There was an error while loading courses</translation>
@@ -523,10 +436,6 @@
 </context>
 <context>
     <name>Logger</name>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
     <message>
         <location filename="../gui/logger.ui" line="60"/>
         <source>Log-Umfang:</source>
@@ -665,14 +574,6 @@
         <translation>You have not granted Sync-my-L2P access to your Moodle data. Please log in and authorize the application.</translation>
     </message>
     <message>
-        <source>Du hast Sync-my-RWTHmoodle noch nicht die Berechtigung erteilt, auf Moodle zuzugreifen. Bitte logge dich neu ein.</source>
-        <translation type="vanished">You have not granted Sync-my-L²P access to your Moodle data. Please log in and authorize the application.</translation>
-    </message>
-    <message>
-        <source>Accesstoken: </source>
-        <translation type="obsolete">Access-token: </translation>
-    </message>
-    <message>
         <location filename="../src/login.cpp" line="234"/>
         <source>Status der Antwort ok, aber Antworttyp nicht bekannt.
 </source>
@@ -688,10 +589,6 @@
 <context>
     <name>LoginDialog</name>
     <message>
-        <source>Fehler: L2P nicht erreichbar. Genauer Fehler: </source>
-        <translation type="vanished">Error: L²P not accessible. Exact Error: </translation>
-    </message>
-    <message>
         <location filename="../gui/logindialog.ui" line="17"/>
         <source>Login</source>
         <translation>Login</translation>
@@ -702,34 +599,14 @@
         <translation>Checking connection to Moodle Proxy…</translation>
     </message>
     <message>
-        <source>Überprüfe Erreichbarkeit des L2P...</source>
-        <translation type="vanished">Checking connection to L2P…</translation>
-    </message>
-    <message>
-        <source>Erreichbarkeitsrequest</source>
-        <translation type="vanished">Accessibility Request</translation>
-    </message>
-    <message>
-        <source>Erreichbarkeit festgestellt</source>
-        <translation type="vanished">Accessibility ascertained</translation>
-    </message>
-    <message>
         <location filename="../src/logindialog.cpp" line="37"/>
         <source>Moodle Erreichbarkeitsrequest</source>
         <translation>Moodle Availability request</translation>
     </message>
     <message>
-        <source>L2P nicht erreichbar. Genauer Fehler: </source>
-        <translation type="vanished">L²P not accessible. Exact Error: </translation>
-    </message>
-    <message>
         <location filename="../src/logindialog.cpp" line="60"/>
         <source>Inhalt der Antwort: </source>
         <translation>Content of the answer: </translation>
-    </message>
-    <message>
-        <source>Fehler: L2P nicht erreichbar.</source>
-        <translation type="vanished">Error: L²P not accessible.</translation>
     </message>
     <message>
         <location filename="../src/logindialog.cpp" line="59"/>
@@ -769,14 +646,6 @@
 </context>
 <context>
     <name>MyMainWindow</name>
-    <message>
-        <source>Sync-my-L²P</source>
-        <translation type="obsolete">Sync-my-L²P</translation>
-    </message>
-    <message>
-        <source>Sync-my-RWTHmoodle</source>
-        <translation type="vanished">Sync-my-L²P</translation>
-    </message>
     <message>
         <location filename="../gui/mymainwindow.ui" line="26"/>
         <source>Sync-my-L2P</source>
@@ -834,12 +703,6 @@ You can deactivate this message in the settings.
 Open downloads page %1?</translation>
     </message>
     <message>
-        <source>Auf der offiziellen Webseite ist eine neue Version verfügbar!
-Diese Nachricht kannst du in den Optionen deaktiveren.</source>
-        <translation type="vanished">A new version is accessible on the offical website.
-You can deactivate this message in the options tab.</translation>
-    </message>
-    <message>
         <location filename="../src/mymainwindow.cpp" line="195"/>
         <source>Diese Version ist aktuell</source>
         <translation>This version is up to date</translation>
@@ -854,25 +717,9 @@ You can deactivate this message in the options tab.</translation>
         <source>wechsle Sprache auf </source>
         <translation>switch language to </translation>
     </message>
-    <message>
-        <source>Systemsprache</source>
-        <translation type="vanished">System Language</translation>
-    </message>
 </context>
 <context>
     <name>Options</name>
-    <message>
-        <source>E-Mail-Anhänge</source>
-        <translation type="vanished">Email attachments</translation>
-    </message>
-    <message>
-        <source>Ankündigungs-Anhänge</source>
-        <translation type="vanished">Announcement attachments</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
     <message>
         <location filename="../gui/options.ui" line="20"/>
         <source>Login</source>
@@ -915,38 +762,6 @@ You can deactivate this message in the options tab.</translation>
         <translation>Browse</translation>
     </message>
     <message>
-        <source>Über Sync-my-RWTHmoodle</source>
-        <translation type="vanished">About Sync-my-L2P</translation>
-    </message>
-    <message>
-        <source>Filter für Rubriken</source>
-        <translation type="vanished">Columns Filter</translation>
-    </message>
-    <message>
-        <source>Übungen</source>
-        <translation type="vanished">Assignments</translation>
-    </message>
-    <message>
-        <source>Lernmaterialien</source>
-        <translation type="vanished">Learning Materials</translation>
-    </message>
-    <message>
-        <source>Medienbibliothek</source>
-        <translation type="vanished">Media Library</translation>
-    </message>
-    <message>
-        <source>Gemeinsame Dokumente</source>
-        <translation type="vanished">Shared Documents</translation>
-    </message>
-    <message>
-        <source>E-Mails</source>
-        <translation type="vanished">Emails</translation>
-    </message>
-    <message>
-        <source>Ankündigungen</source>
-        <translation type="vanished">Announcements</translation>
-    </message>
-    <message>
         <location filename="../gui/options.ui" line="124"/>
         <source>Automatisation</source>
         <translation>Automation</translation>
@@ -975,14 +790,6 @@ You can deactivate this message in the options tab.</translation>
         <location filename="../gui/options.ui" line="182"/>
         <source>Beim Minimieren im Tray verschwinden</source>
         <translation>Minimize to tray</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn im L2P eine neue Version einer Datei vorhanden ist, wird die alte Version auf der Festplatte überschrieben.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ACHTUNG:&lt;/span&gt; Beim Überschreiben gehen eigene Änderungen an den Dateien (Kommentare, etc.) verloren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If a new version of the file is available in L²P, the old version on the hard drive will be overwritten..&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ATTENTION:&lt;/span&gt; By Overwriting files, your own changes (comments, etc.) will be lost.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Dateien überschreiben</source>
-        <translation type="vanished">Override files</translation>
     </message>
     <message>
         <location filename="../gui/options.ui" line="200"/>
@@ -1075,18 +882,6 @@ You can deactivate this message in the options tab.</translation>
 <context>
     <name>Parser</name>
     <message>
-        <source>Kursinformationen leer bzw. nicht lesbar.</source>
-        <translation type="vanished">Course information empty or not readable.</translation>
-    </message>
-    <message>
-        <source>Status der Kursinformationen nicht ok: </source>
-        <translation type="vanished">Status of course information not okay: </translation>
-    </message>
-    <message>
-        <source>Veranstaltung </source>
-        <translation type="vanished">Course </translation>
-    </message>
-    <message>
         <location filename="../src/parser.cpp" line="63"/>
         <source>) hinzugefügt.</source>
         <translation>) added.</translation>
@@ -1106,15 +901,6 @@ You can deactivate this message in the options tab.</translation>
         <location filename="../src/parser.cpp" line="63"/>
         <source>Moodle-Veranstaltung</source>
         <translation>Moodle course</translation>
-    </message>
-    <message>
-        <source>Antwort auf unbekannten Request erhalten: </source>
-        <translation type="vanished">Received answer to unknown request: </translation>
-    </message>
-    <message>
-        <source>Status der Kursinformationen nicht ok: 
-</source>
-        <translation type="vanished">Status of course information not okay: </translation>
     </message>
     <message>
         <location filename="../src/parser.cpp" line="84"/>
@@ -1175,18 +961,6 @@ You can deactivate this message in the options tab.</translation>
         <location filename="../gui/message.ui" line="123"/>
         <source>Musterthema</source>
         <translation>Sample topic</translation>
-    </message>
-    <message>
-        <source>Nicht verfügbar</source>
-        <translation type="vanished">Not available</translation>
-    </message>
-    <message>
-        <source>Nachricht offline nicht verfügbar!</source>
-        <translation type="vanished">Message offline not available!</translation>
-    </message>
-    <message>
-        <source>Bitte verbinde dich mit dem L²P, um die Nachricht zu lesen!</source>
-        <translation type="vanished">Please connect to the L2P to read the message!</translation>
     </message>
 </context>
 </TS>
