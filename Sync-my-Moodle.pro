@@ -6,11 +6,11 @@ VERSION_CODE = "20501"
 
 TEMPLATE_FILES = include/version.h.template \
             gui/info.ui.template \
-            windows/SyncMyL2P.xml.template
+            windows/SyncMyMoodle.xml.template
 
 template_compiler.input = TEMPLATE_FILES
 template_compiler.output  = ${QMAKE_FILE_IN_PATH}/${QMAKE_FILE_IN_BASE}
-template_compiler.depends = ${QMAKE_FILE_IN} Sync-my-L2P.pro
+#template_compiler.depends = ${QMAKE_FILE_IN} Sync-my-Moodle.pro
 win32 {
     template_compiler.commands = powershell -Command \"(Get-Content -Encoding utf8 \\\"${QMAKE_FILE_IN}\\\").Replace(\\\"__PRODUCT_VERSION_CODE\\\",\\\"$$VERSION_CODE\\\").Replace(\\\"__PRODUCT_VERSION\\\",\\\"$$VERSION\\\") | Set-Content -Encoding utf8 -Path ${QMAKE_FILE_OUT}\"
 }
@@ -21,12 +21,12 @@ template_compiler.CONFIG = target_predeps no_link
 QMAKE_EXTRA_COMPILERS += template_compiler
 
 macx {
-    plistupdate.commands = /usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string $$VERSION\" -c \"Add :CFBundleShortVersionString string $$VERSION\" -c \"Add :CFBundleName string Sync-my-L2P\" -c \"Set :CFBundleIdentifier de.rwth-aachen.Sync-my-L2P\" bin/Sync-my-L2P.app/Contents/Info.plist
+    plistupdate.commands = /usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string $$VERSION\" -c \"Add :CFBundleShortVersionString string $$VERSION\" -c \"Add :CFBundleName string Sync-my-Moodle\" -c \"Set :CFBundleIdentifier de.rwth-aachen.Sync-my-Moodle\" bin/Sync-my-Moodle.app/Contents/Info.plist
     QMAKE_EXTRA_TARGETS += plistupdate
     PRE_TARGETDEPS += plistupdate
 }
 
-TARGET = Sync-my-L2P
+TARGET = Sync-my-Moodle
 TEMPLATE = app
 DESTDIR = bin
 
@@ -79,10 +79,8 @@ FORMS += \
     gui/mymainwindow.ui \
     gui/options.ui
 
-TRANSLATIONS = lang/sync-my-l2p_de.ts \
-               lang/sync-my-l2p_en.ts \
-               lang/sync-my-l2p_lb.ts \
-               lang/sync-my-l2p_sq.ts
+TRANSLATIONS = lang/sync-my-moodle_de.ts \
+               lang/sync-my-moodle_en.ts
 
 RESOURCES += \
     icons/icons.qrc \
@@ -91,7 +89,7 @@ RESOURCES += \
 RC_FILE = icon.rc
 
 OTHER_FILES += \
-    Sync-my-L2P.icns \
+    Sync-my-Moodle.icns \
     README.md \
     magnifier.ico \
     LICENSE \

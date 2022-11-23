@@ -17,6 +17,7 @@ moc_predefs.h
 gui/info.ui
 include/version.h
 windows/SyncMyL2P.xml
+windows/SyncMyMoodle.xml
 
 // Automated builds
 qt5
