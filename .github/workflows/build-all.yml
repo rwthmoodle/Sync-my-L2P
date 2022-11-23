@@ -7,8 +7,8 @@ env:
   QT_CREATOR_VERSION: "4.13.3"
   XCODE_VERSION: "12.1.1"
   INSTALL_BUILDER_VERSION: "20.4.0"
-  PRODUCT_PRO: "Sync-my-L2P.pro"
-  PRODUCT_NAME: "SyncMyL2P"
+  PRODUCT_PRO: "Sync-my-Moodle.pro"
+  PRODUCT_NAME: "SyncMyMoodle"
   CLIENT_ID: ${{ secrets.CLIENT_ID }}
   INSTALLBUILDER_LICENSE: ${{ secrets.INSTALLBUILDER_LICENSE }}
   VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC" # needed for installbuilder to locate vcredist
@@ -50,7 +50,7 @@ jobs:
       id: version
       shell: cmake -P {0}
       run: |
-        file(READ ./Sync-my-L2P.pro pro_content)
+        file(READ ./$ENV{PRODUCT_PRO} pro_content)
         string(REGEX MATCH "VERSION = \"([^\"]+)\"" unused "${pro_content}")
         set(version_humanreadable ${CMAKE_MATCH_1})
 
@@ -212,7 +212,7 @@ jobs:
           set(qtc_output_directory "bin")
           set(qtc_platform "linux_x64")
         elseif ("${{ runner.os }}" STREQUAL "macOS")
-          set(qtc_output_directory "bin/Sync-my-L2P.app/Contents/MacOS")
+          set(qtc_output_directory "bin/Sync-my-Moodle.app/Contents/MacOS")
           set(qtc_platform "mac_x64")
         endif()
 
@@ -433,18 +433,18 @@ jobs:
           file(MAKE_DIRECTORY "./build/usr/share/icons")
 
           # Copy compiled binary, precompiled libs, icons, desktop-file (config details for AppImage deploy)
-          file(COPY "./bin/Sync-my-L2P" DESTINATION "./build/usr/bin/")
+          file(COPY "./bin/Sync-my-Moodle" DESTINATION "./build/usr/bin/")
           file(COPY "./linux/lib/" DESTINATION "./build/usr/lib/")
           file(COPY "./linux/hicolor" DESTINATION "./build/usr/share/icons/")
-          file(COPY "./linux/Sync-my-L2P.desktop" DESTINATION "./build/usr/share/applications/")
+          file(COPY "./linux/Sync-my-Moodle.desktop" DESTINATION "./build/usr/share/applications/")
 
           # Make sure to convert DOS linebreaks to unix
-          execute_process(COMMAND dos2unix Sync-my-L2P.desktop WORKING_DIRECTORY ./build/usr/share/applications/)
+          execute_process(COMMAND dos2unix Sync-my-Moodle.desktop WORKING_DIRECTORY ./build/usr/share/applications/)
           
           # Produce AppImage
-          execute_process(COMMAND ./squashfs-root/AppRun ../build/usr/share/applications/Sync-my-L2P.desktop -verbose=2 -appimage WORKING_DIRECTORY ./linux/)
+          execute_process(COMMAND ./squashfs-root/AppRun ../build/usr/share/applications/Sync-my-Moodle.desktop -verbose=2 -appimage WORKING_DIRECTORY ./linux/)
           
-          file(RENAME "./linux/Sync-my-L2P-$ENV{VERSION}-x86_64.AppImage" "${artifact_path}")
+          file(RENAME "./linux/Sync-my-Moodle-$ENV{VERSION}-x86_64.AppImage" "${artifact_path}")
 
         elseif ("${{ runner.os }}" STREQUAL "macOS")
           execute_process(
@@ -464,7 +464,7 @@ jobs:
           endif()
 
           execute_process(
-            COMMAND ${{ steps.qt.outputs.qt_dir }}/bin/macdeployqt Sync-my-L2P.app -sign-for-notarization=${{ secrets.APPLE_SIGNING_IDENTITY_NAME }}
+            COMMAND ${{ steps.qt.outputs.qt_dir }}/bin/macdeployqt Sync-my-Moodle.app -sign-for-notarization=${{ secrets.APPLE_SIGNING_IDENTITY_NAME }}
             WORKING_DIRECTORY ./bin
             RESULT_VARIABLE result
           )
@@ -473,7 +473,7 @@ jobs:
           endif()
 
           execute_process(
-            COMMAND fileicon set Sync-my-L2P.app ../magnifier.ico
+            COMMAND fileicon set Sync-my-Moodle.app ../magnifier.ico
             WORKING_DIRECTORY ./bin
             RESULT_VARIABLE result
           )
@@ -490,7 +490,7 @@ jobs:
           endif()
 
           execute_process(
-            COMMAND xcnotary notarize Sync-my-L2P.app --developer-account "${{ secrets.APPLE_DEVELOPER_ACCOUNT }}" --developer-password-keychain-item DEVELOPER_SECRET
+            COMMAND xcnotary notarize Sync-my-Moodle.app --developer-account "${{ secrets.APPLE_DEVELOPER_ACCOUNT }}" --developer-password-keychain-item DEVELOPER_SECRET
             WORKING_DIRECTORY ./bin
             RESULT_VARIABLE result
           )
@@ -499,14 +499,14 @@ jobs:
           endif()
 
           execute_process(
-            COMMAND create-dmg Sync-my-L2P.app
+            COMMAND create-dmg Sync-my-Moodle.app
             WORKING_DIRECTORY ./bin
           )
           if (NOT result EQUAL 0)
             message(FATAL_ERROR "Bad exit status")
           endif()
 
-          file(RENAME "./bin/Sync-my-L2P ${{ steps.version.outputs.humanreadable }}.dmg" "${artifact_path}")
+          file(RENAME "./bin/Sync-my-Moodle ${{ steps.version.outputs.humanreadable }}.dmg" "${artifact_path}")
         endif()
 
     - uses: actions/upload-artifact@v1
