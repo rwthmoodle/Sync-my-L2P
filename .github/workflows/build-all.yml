@@ -400,7 +400,7 @@ jobs:
           execute_process(
             COMMAND ./installbuilder/bin/builder-cli.exe
               build
-              ./windows/SyncMyL2P.xml
+              ./windows/SyncMyMoodle.xml
               ${installer_platform}
               --license ./installbuilder/license.xml
               --verbose
