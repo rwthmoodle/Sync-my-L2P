@@ -1,5 +1,5 @@
 
-Sync-my-L2P links against OpenSSL at runtime. This page describes where we get the OpenSSL DLLs from.
+Sync-my-Moodle links against OpenSSL at runtime. This page describes where we get the OpenSSL DLLs from.
 
 ### Why not use QT's precompiled OpenSSL DLLs?
 
@@ -8,7 +8,7 @@ On https://download.qt.io/ there are already prebuilt OpenSSL DLLs:
 * https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_openssl_x86/qt.tools.openssl.win_x86/
 * https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_openssl_x64/qt.tools.openssl.win_x64/
 
-They are built with an older version of Visual Studio. Therefore they link to msvcr100.dll which has to be installed on some systems (e.g. Windows 7) through the Microsoft Visual C++ 2010 SP1 Redistributable. But since Sync-my-L2P is built with a newer Visual Studio version, it ships with a newer Visual C++ Redistributable that doesn't contain msvcr100.dll. Therefore we compile OpenSSL ourselves with the same Visual Studio version as Sync-my-L2P. This way we only need one Visual C++ Redistributable. To keep Sync-my-L2P's build time short, we've checked in the precompiled DLLs.
+They are built with an older version of Visual Studio. Therefore they link to msvcr100.dll which has to be installed on some systems (e.g. Windows 7) through the Microsoft Visual C++ 2010 SP1 Redistributable. But since Sync-my-Moodle is built with a newer Visual Studio version, it ships with a newer Visual C++ Redistributable that doesn't contain msvcr100.dll. Therefore we compile OpenSSL ourselves with the same Visual Studio version as Sync-my-Moodle. This way we only need one Visual C++ Redistributable. To keep Sync-my-Moodle's build time short, we've checked in the precompiled DLLs.
 
 ### Prerequisites
 

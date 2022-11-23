@@ -97,8 +97,8 @@ void MyMainWindow::closeTask()
 void MyMainWindow::loadSettings()
 {
     // Globale Werte setzen
-    QCoreApplication::setOrganizationName("IT Center RWTH Aachen");
-    QCoreApplication::setOrganizationDomain("de.rwth-aachen.app.Sync-my-Moodle");
+    QCoreApplication::setOrganizationName("IT-Center RWTH Aachen");
+    QCoreApplication::setOrganizationDomain("de.rwth-aachen.Sync-my-Moodle");
     QCoreApplication::setApplicationName("Sync-my-Moodle");
 
     // Einstellungen alter Versionen entfernen

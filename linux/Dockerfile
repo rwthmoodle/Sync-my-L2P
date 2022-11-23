@@ -8,6 +8,6 @@ WORKDIR /work
 COPY . /work
 RUN mkdir /res
 ENV PATH="${PATH}:/opt/qt511/bin"
-RUN qmake DESTDIR=/res -o syncmyl2p.mk
-RUN make -j4 -f syncmyl2p.mk
+RUN qmake DESTDIR=/res -o syncmymoodle.mk
+RUN make -j4 -f syncmymoodle.mk
 RUN bash linux/create_appimage.sh

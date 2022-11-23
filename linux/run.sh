@@ -1,2 +1,2 @@
-docker build -t syncmyl2p -f linux/Dockerfile .
-docker run -it --rm -v %cd%:/trans syncmyl2p bash
+docker build -t syncmymoodle -f linux/Dockerfile .
+docker run -it --rm -v %cd%:/trans syncmymoodle bash

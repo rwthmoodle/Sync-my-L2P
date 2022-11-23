@@ -1,9 +1,9 @@
-<project>
-    <shortName>SyncMyL2P</shortName>
-    <fullName>Sync-my-L2P</fullName>
-    <version>__PRODUCT_VERSION</version>
-    <logoImage>../icons/Sync-my-L2P.png</logoImage>
-    <splashImage>../icons/Sync-my-L2P.png</splashImage>
+﻿<project>
+    <shortName>SyncMyMoodle</shortName>
+    <fullName>Sync-my-Moodle</fullName>
+    <version>2.5.1</version>
+    <logoImage>../icons/Sync-my-Moodle.png</logoImage>
+    <splashImage>../icons/Sync-my-Moodle.png</splashImage>
     <defaultLanguage>de</defaultLanguage>
     <componentList>
         <component>
@@ -99,7 +99,7 @@
                             <origin>../bin/Qt5Xml.dll</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../bin/Sync-my-L2P.exe</origin>
+                            <origin>../bin/Sync-my-Moodle.exe</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../bin/vc_redist.x86.exe</origin>
@@ -164,7 +164,7 @@
                             <origin>../bin/Qt5Xml.dll</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../bin/Sync-my-L2P.exe</origin>
+                            <origin>../bin/Sync-my-Moodle.exe</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../bin/vc_redist.x64.exe</origin>
@@ -187,10 +187,10 @@
             <startMenuShortcutList>
                 <startMenuShortcut>
                     <comment></comment>
-                    <name>Sync-My-L2P</name>
+                    <name>Sync-My-Moodle</name>
                     <runAsAdmin>0</runAsAdmin>
                     <runInTerminal>0</runInTerminal>
-                    <windowsExec>${installdir}\Sync-my-L2P.exe</windowsExec>
+                    <windowsExec>${installdir}\Sync-my-Moodle.exe</windowsExec>
                     <windowsExecArgs></windowsExecArgs>
                     <windowsIcon></windowsIcon>
                     <windowsPath>${installdir}</windowsPath>
