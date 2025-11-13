@@ -35,7 +35,7 @@ jobs:
         - {
             name: "Linux",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-linux.AppImage",
-            os: ubuntu-18.04
+            os: ubuntu-24.04
           }
         - {
             name: "macOS",
