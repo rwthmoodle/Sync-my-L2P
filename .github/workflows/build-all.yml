@@ -23,13 +23,13 @@ jobs:
         - {
             name: "Windows x64",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x64.exe",
-            os: windows-2019,
+            os: windows-2025,
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
           }
         - {
             name: "Windows x86",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-windows-x86.exe",
-            os: windows-2019,
+            os: windows-2025,
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars32.bat"
           }
         - {
@@ -40,7 +40,7 @@ jobs:
         - {
             name: "macOS",
             artifact: "$ENV{PRODUCT_NAME}-PRODUCT_VERSION-osx.dmg",
-            os: macos-10.15
+            os: macos-11
           }
 
     steps:
@@ -62,7 +62,7 @@ jobs:
 
     - name: Upload human-readable version
       if: contains(github.ref, 'tags/v')
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: version_humanreadable.txt
         path: ./version_humanreadable.txt
@@ -509,7 +509,7 @@ jobs:
           file(RENAME "./bin/Sync-my-L2P ${{ steps.version.outputs.humanreadable }}.dmg" "${artifact_path}")
         endif()
 
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v4
       id: upload_artifact
       with:
         name: ${{ steps.installer.outputs.artifact_name }}
@@ -536,7 +536,7 @@ jobs:
       run: |
         echo "${{ steps.create_release.outputs.upload_url }}" > ./upload_url
 
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v4
       with:
         path: ./upload_url
         name: upload_url
@@ -573,7 +573,7 @@ jobs:
 
     steps:
     - name: Download human-readable version
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4
       with:
         name: version_humanreadable.txt
         path: ./
@@ -592,13 +592,13 @@ jobs:
         message("::set-output name=artifact_path::${artifact_path}")
 
     - name: Download artifact
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4
       with:
         name: ${{ steps.filename.outputs.artifact_name }}
         path: ./
 
     - name: Download URL
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4
       with:
         name: upload_url
         path: ./
